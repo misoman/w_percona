@@ -1,0 +1,15 @@
+{
+  "name": "w_apache_role",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "default_attributes": {
+    "apache2": {
+      "listen_ports": [
+        "80"
+      ]
+    }
+  },
+  "run_list": [
+    "recipe[w_apache]"
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "name": "development",
+  "description": "The Web Application Developer's vagrant Chef environment",
+  "json_class": "Chef::Environment",
+  "chef_type": "environment",
+  "override_attributes": {
+    "authorization": {
+      "sudo": {
+      "groups": ["admin"],
+      "users": ["vagrant"],
+      "passwordless": "true"
+      }
+    },
+    "monit_enabled": false,
+    "uv_common": {
+      "nfs_enabled": false,
+      "vmware-tools_enabled": false
+    },
+    "uv_haproxy": {
+      "listen_port": "82",
+      "backend_port": "81"
+    },
+    "varnish": {
+      "listen_port": "81",
+      "backend_port": "80"
+    },
+    "uv_apache": {
+      "ngrok_enabled": true
+    },
+    "percona": {
+      "cluster": {
+        "wsrep_cluster_name":"vagrant_cluster",
+        "cluster_ips": ["127.0.0.1"]
+      },
+      "server": {
+        "key_buffer": "512M",
+        "query_cache_size": "256M",
+        "innodb_buffer_pool_size": "512M"
+      },
+      "skip_passwords": false
+    }
+  }
+}

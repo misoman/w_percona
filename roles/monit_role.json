@@ -1,0 +1,27 @@
+{
+  "name": "monit_role",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "override_attributes": {
+    "monit": {
+      "binary_install": true,
+      "binary": {
+        "version": "5.11",
+        "url": "http://mmonit.com/monit/dist/binary/5.10/monit-5.10-linux-x64.tar.gz",
+        "checksum": "0845d7d2027249c790552b83da731cfb1f6196ab1b3e24f31a6f2307947b124f"
+      },
+      "default_monitrc_configs": ["ssh"],
+      "alert_ignore_events": ["action", "instance", "pid", "ppid"],
+      "alert_email": "alert@email.com",
+      "mail": {
+        "hostname": "mail.mediaemailservices.com",
+        "port": "465",
+        "security": "SSLV3",
+        "username": "alert@email.com",
+        "password": "emailPASSWORD!!",
+        "from": "monit@email.com"
+      }
+    }
+  },
+  "run_list": []
+}

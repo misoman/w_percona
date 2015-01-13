@@ -1,0 +1,13 @@
+{
+  "name": "w_common_role",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "default_attributes": {
+    "w_common": {
+      "vmware-tools_enabled": false
+    }
+  },
+  "run_list": [
+    "recipe[w_common]"
+  ]
+}
