@@ -21,6 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "webapp", primary: true do |webapp|
     webapp.vm.hostname = "webapp" + hostpostfix
     webapp.vm.box = "joelhandwell/ubuntu_trusty64_vbox_4_3_20"
+    webapp.vm.synced_folder "websites", "/websites"
     webapp.vm.provision "chef_zero" do |chef|
       chef.cookbooks_path = "cookbooks"
       chef.roles_path = "roles"
@@ -30,6 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       chef.add_role "w_common_role"
       chef.add_role "w_varnish_role"
       chef.add_role "w_apache_role"
+      chef.add_role "w_memcached_role"
       chef.add_role "w_percona_role"
     end
   end
