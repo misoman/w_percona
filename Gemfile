@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+gem 'knife-spec'
 gem 'berkshelf'
 gem 'foodcritic'
 gem 'chef-zero'

@@ -1,4 +1,28 @@
+include_recipe 'ubuntu'
+
+apt_repository 'multiverse' do
+  uri 'http://archive.ubuntu.com/ubuntu'
+  distribution 'precise'
+  components ['multiverse']
+end
+
+apt_repository 'updates-multiverse' do
+  uri 'http://archive.ubuntu.com/ubuntu'
+  distribution 'precise-updates'
+  components ['multiverse']
+end
+
+apt_repository 'security-multiverse-src' do
+  uri 'http://security.ubuntu.com/ubuntu'
+  distribution 'precise-security'
+  components ['multiverse']
+  deb_src true
+end
+
 include_recipe 'apache2'
+include_recipe 'w_apache::vhosts'
+include_recipe 'w_apache::apache2_module_fastcgi'
+include_recipe 'w_apache::php-fpm'
 include_recipe 'w_apache::php'
 
 firewall_rule 'http' do

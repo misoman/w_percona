@@ -1,5 +1,7 @@
 source 'https://supermarket.chef.io'
 
+cookbook 'ubuntu'
+cookbook 'apt'
 cookbook 'apt-repo', git: 'https://github.com/sometimesfood/chef-apt-repo.git'
 cookbook 'git'
 cookbook 'monit', git: 'https://github.com/phlipper/chef-monit.git'
@@ -10,7 +12,8 @@ cookbook 'vmware-tools', git: 'https://github.com/tamucookbooks/vmware-tools.git
 
 cookbook 'varnish'
 cookbook 'apache2'
-cookbook 'php'
+cookbook 'php', git: 'https://github.com/priestjim/chef-php.git'
+cookbook 'php-fpm', git: 'https://github.com/yevgenko/cookbook-php-fpm.git'
 cookbook 'memcached'
 cookbook 'percona'
 

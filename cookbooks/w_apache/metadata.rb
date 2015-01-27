@@ -6,6 +6,8 @@ description      'Installs/Configures apache2, php, php fpm and other related pa
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '0.0'
 
+depends 'apt'
+depends 'ubuntu'
 depends 'apache2'
 depends 'php-fpm'
 depends 'php'
