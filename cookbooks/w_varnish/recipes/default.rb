@@ -56,7 +56,13 @@ service 'varnishlog' do
   action %w(enable start)
 end
 
-firewall_rule 'http' do
+firewall_rule 'listen port' do
+  port     node['varnish']['listen_port'].to_i
+  protocol :tcp
+  action   :allow
+end
+
+firewall_rule 'backend port' do
   port     node['varnish']['backend_port'].to_i
   protocol :tcp
   action   :allow
