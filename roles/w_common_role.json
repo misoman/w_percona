@@ -4,7 +4,24 @@
   "chef_type": "role",
   "default_attributes": {
     "w_common": {
-      "vmware-tools_enabled": false
+      "vmware-tools_enabled": false,
+      "web_apps": [
+        {
+          "vhost": {
+            "main_domain": "www.examplewebsite.com",
+            "aliases": ["examplewebsite.com"]
+          },
+          "webapp_db_connection": {
+            "db_domain": "db.examplewebsite.com",
+            "webapp_domain": "webapp.examplewebsite.com"
+          },
+          "mysql": {
+            "db": "ex_db",
+            "user": "ex_user",
+            "password": "ex_pw"
+          }
+        }
+      ]
     }
   },
   "run_list": [

@@ -36,3 +36,13 @@ node.override["percona"]["cluster"]["wsrep_node_name"] = node['hostname']
 include_recipe 'percona::cluster'
 include_recipe 'percona::backup'
 include_recipe 'percona::toolkit'
+include_recipe 'w_percona::database'
+include_recipe 'w_percona::xinetd' if node['percona']['xinetd_enabled']
+
+[3306, 4444, 4567, 4568, 9200].each do |percona_port|
+  firewall_rule 'percona' do
+    port     percona_port
+    protocol :tcp
+    action   :allow
+  end
+end

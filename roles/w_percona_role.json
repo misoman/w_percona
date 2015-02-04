@@ -5,13 +5,14 @@
   "chef_type": "role",
   "default_attributes": {
     "percona": {
+      "apt_keyserver": "hkp://keyserver.ubuntu.com:80",
       "server": {
         "role": "cluster",
         "port": 3306,
-        "replication": {
-          "port": 3306
-        }
+        "replication": {"port": 3306},
+        "root_password": "rootpw!"
       },
+      "backup": {"password": "backuppw!"},
       "cluster": {
         "package":"percona-xtradb-cluster-56",
         "wsrep_sst_receive_interface":"eth0"

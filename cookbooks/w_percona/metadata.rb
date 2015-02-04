@@ -8,3 +8,4 @@ version '0.0'
 
 depends 'percona'
 depends 'firewall'
+depends 'xinetd'

@@ -12,11 +12,15 @@
       }
     },
     "monit_enabled": false,
-    "uv_common": {
+    "dbhosts": {
+      "db_ip": "127.0.0.1",
+      "webapp_ip": "127.0.0.1"
+    },
+    "w_common": {
       "nfs_enabled": false,
       "vmware-tools_enabled": false
     },
-    "uv_haproxy": {
+    "w_haproxy": {
       "listen_port": "82",
       "backend_port": "81"
     },
@@ -24,8 +28,12 @@
       "listen_port": "81",
       "backend_port": "80"
     },
-    "uv_apache": {
-      "ngrok_enabled": true
+    "w_apache": {
+      "ngrok_enabled": true,
+      "config_test_enabled": true
+    },
+    "w_memcached": {
+      "ips": ["127.0.0.1"]
     },
     "percona": {
       "cluster": {
@@ -35,9 +43,11 @@
       "server": {
         "key_buffer": "512M",
         "query_cache_size": "256M",
-        "innodb_buffer_pool_size": "512M"
+        "innodb_buffer_pool_size": "512M",
+        "bind_address": "127.0.0.1"
       },
-      "skip_passwords": false
+      "skip_passwords": false,
+      "xinetd_enabled": false
     }
   }
 }

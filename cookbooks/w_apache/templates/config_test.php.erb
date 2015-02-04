@@ -1,0 +1,40 @@
+<html>
+  <body>
+  Hello World! <?php echo " and Hello PHP!"; ?><br/><br/>
+
+  PHP Extensions:
+  <?php
+  print_r(get_loaded_extensions());
+  ?>
+  <br/><br/>
+
+  DB Connection Test:
+  <?php
+    $servername = "<%= @db_domain %>";
+    $username   = "<%= @user %>";
+    $password   = "<%= @password %>";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, $password);
+
+    // Check connection
+    if ($conn->connect_error) {
+      die("Connection failed: " . $conn->connect_error);
+    }
+    echo "Connected to <%= @db_domain %> successfully";
+  ?>
+  <br/><br/>
+
+  Memcached Connection Test:
+  <?php
+    $m = new Memcached();
+    <% node['w_memcached']['ips'].each do |ip| %>
+    $m->addServer('<%= ip %>', 11211);
+    <% end %>
+    echo "Setting \$m->set('foo', 100);  \$m->get('foo') Result:";
+    $m->set('foo', 100);
+    var_dump($m->get('foo'));
+  ?>
+
+  </body>
+</html>
