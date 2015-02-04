@@ -1,2 +1,4 @@
 .vagrant/*
 *.lock
+websites/*
+rebuild*
