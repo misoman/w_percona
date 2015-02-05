@@ -3,7 +3,7 @@ node['w_common']['web_apps'].each do |web_app|
 
   hostsfile_entry node['dbhosts']['webapp_ip'] do
     hostname web_app['webapp_db_connection']['webapp_domain']
-    action :create
+    action :append
     unique true
   end
 
