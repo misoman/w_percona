@@ -20,7 +20,22 @@
             "user": "ex_user",
             "password": "ex_pw"
           }
-        }
+        },
+        {
+          "vhost": {
+            "main_domain": "www.christiantimes.com",
+            "aliases": ["christiantimes.com"]
+          },
+          "webapp_db_connection": {
+            "db_domain": "db.christiantimes.com",
+            "webapp_domain": "christiantimes.com"
+          },
+          "mysql": {
+            "db": "ctimes",
+            "user": "ctimes",
+            "password": "ex_pw"
+          }
+        },
       ]
     }
   },
