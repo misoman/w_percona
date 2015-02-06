@@ -21,33 +21,18 @@
             "password": "ex_pw"
           }
         },
-        {
-          "vhost": {
-            "main_domain": "christiantimes.com",
-            "aliases": ["www.christiantimes.com"]
-          },
-          "webapp_db_connection": {
-            "db_domain": "db.christiantimes.com",
-            "webapp_domain": "christiantimes.com"
-          },
-          "mysql": {
-            "db": "ctimes",
-            "user": "ctimes",
-            "password": "ex_pw"
-          }
-        },
 		{
           "vhost": {
-			"docroot": "christiantimes.com/manage",
-            "main_domain": "manage.christiantimes.com"
+			"docroot": "examplewebsite.com/admin",
+            "main_domain": "admin.examplewebsite.com"
           },
-		  "webapp_db_connection": {
-            "db_domain": "db.christiantimes.com",
-            "webapp_domain": "christiantimes.com"
+		 "webapp_db_connection": {
+            "db_domain": "db.examplewebsite.com",
+            "webapp_domain": "webapp.examplewebsite.com"
           },
           "mysql": {
-            "db": "ctimes",
-            "user": "ctimes",
+            "db": "ex_db",
+            "user": "ex_user",
             "password": "ex_pw"
           }
         }
