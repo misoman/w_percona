@@ -16,7 +16,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   time = Time.new
-  hostpostfix = "-#{time.strftime('%Y%m%d%H%M%S')}-#{ENV['USER'].gsub('_','-')}"
+  hostpostfix = "-#{time.strftime('%Y%m%d%H%M%S')}-#{ENV['USER'].gsub('_','-').gsub(' ','-')}"
 
   config.vm.define "webapp", primary: true do |webapp|
     webapp.vm.hostname = "webapp" + hostpostfix
