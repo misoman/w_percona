@@ -1,8 +1,8 @@
 node['w_common']['web_apps'].each do |web_app|
 
   vhost = web_app['vhost']
-  dir = '/websites/' + vhost['main_domain']
-
+  dir = vhost['docroot'] ? vhost['docroot'] : vhost['main_domain']
+  dir = '/websites/' + dir
   directory dir
 
   web_app vhost['main_domain'] do

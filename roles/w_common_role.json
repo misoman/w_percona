@@ -8,8 +8,8 @@
       "web_apps": [
         {
           "vhost": {
-            "main_domain": "www.examplewebsite.com",
-            "aliases": ["examplewebsite.com"]
+            "main_domain": "examplewebsite.com",
+            "aliases": ["www.examplewebsite.com"]
           },
           "webapp_db_connection": {
             "db_domain": "db.examplewebsite.com",
@@ -23,10 +23,25 @@
         },
         {
           "vhost": {
-            "main_domain": "www.christiantimes.com",
-            "aliases": ["christiantimes.com"]
+            "main_domain": "christiantimes.com",
+            "aliases": ["www.christiantimes.com"]
           },
           "webapp_db_connection": {
+            "db_domain": "db.christiantimes.com",
+            "webapp_domain": "christiantimes.com"
+          },
+          "mysql": {
+            "db": "ctimes",
+            "user": "ctimes",
+            "password": "ex_pw"
+          }
+        },
+		{
+          "vhost": {
+			"docroot": "christiantimes.com/manage",
+            "main_domain": "manage.christiantimes.com"
+          },
+		  "webapp_db_connection": {
             "db_domain": "db.christiantimes.com",
             "webapp_domain": "christiantimes.com"
           },
