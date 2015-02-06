@@ -1,7 +1,6 @@
 include_recipe "php"
 package "php5-mysql"
 package "php5-mcrypt"
-package "php5-memcache"
 package "php5-memcached"
 package "pkg-config"
 package "php5-xsl"
