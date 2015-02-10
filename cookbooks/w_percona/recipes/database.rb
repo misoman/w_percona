@@ -19,7 +19,7 @@ node['w_common']['web_apps'].each do |web_app|
   end
 
   # apply root password on all hosts
-  [db_host, '127.0.0.1', '::1'].each do |root_host|
+  [db_host, '192.168.33.1', '127.0.0.1', '::1'].each do |root_host|
     execute "apply root password on @#{root_host}" do
       command "mysql -uroot -p'#{root_password}' -e \"UPDATE mysql.user SET password=password('#{root_password}') WHERE user='root' AND host='#{root_host}';\""
       action :run
