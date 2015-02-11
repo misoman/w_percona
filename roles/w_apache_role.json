@@ -3,10 +3,8 @@
   "json_class": "Chef::Role",
   "chef_type": "role",
   "default_attributes": {
-    "apache2": {
-      "listen_ports": [
-        "80"
-      ]
+    "apache": {
+      "access_file_name": ".htaccess"
     }
   },
   "run_list": [

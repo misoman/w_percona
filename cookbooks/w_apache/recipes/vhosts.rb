@@ -10,6 +10,7 @@ node['w_common']['web_apps'].each do |web_app|
     server_aliases vhost['aliases']
     docroot dir
     cookbook 'apache2'
+    allow_override 'All'
   end
 
 end
