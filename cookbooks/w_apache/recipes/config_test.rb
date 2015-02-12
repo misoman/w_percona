@@ -15,6 +15,10 @@ node['w_common']['web_apps'].each do |web_app|
     )
   end
 
+  file '/websites/' + dir + '/info.php' do
+    content '<php? echo phpinfo(); ?>'
+  end
+
   redirect_dir = '/websites/' + dir + '/redierct_test'
   directory redirect_dir
   %w[ old new ].each do |filename|
