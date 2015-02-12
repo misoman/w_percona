@@ -3,4 +3,3 @@
 *.orig
 websites/*
 !websites/README
-rebuild*
