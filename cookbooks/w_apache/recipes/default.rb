@@ -31,5 +31,6 @@ firewall_rule 'http' do
   action   :allow
 end
 
+include_recipe 'w_apache::xdebug' if node['w_apache']['xdebug_enabled']
 include_recipe 'w_apache::config_test' if node['w_apache']['config_test_enabled']
 include_recipe 'w_apache::monit' if node['monit_enabled']

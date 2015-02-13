@@ -14,6 +14,7 @@ cookbook 'varnish'
 cookbook 'apache2', git: 'https://github.com/joelhandwell/apache2.git'
 cookbook 'php', git: 'https://github.com/priestjim/chef-php.git'
 cookbook 'php-fpm', git: 'https://github.com/yevgenko/cookbook-php-fpm.git'
+cookbook 'xdebug'
 cookbook 'memcached'
 cookbook 'percona'
 
