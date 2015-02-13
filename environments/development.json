@@ -30,6 +30,7 @@
     },
     "w_apache": {
       "ngrok_enabled": true,
+      "xdebug_enabled": true,
       "config_test_enabled": true
     },
     "w_memcached": {
