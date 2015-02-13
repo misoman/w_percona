@@ -6,7 +6,11 @@
     Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
     FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -idle-timeout 250 -socket /var/run/php-fpm-www.sock  -pass-header Authorization
     <Directory /usr/lib/cgi-bin>
+        <% if node['apache']['version'] == '2.2' -%>
         Order allow,deny
         Allow from all
+        <% elsif node['apache']['version'] == '2.4' -%>
+        Require all granted
+        <% end -%>
     </Directory>
 </IfModule>

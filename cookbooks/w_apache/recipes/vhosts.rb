@@ -11,6 +11,7 @@ node['w_common']['web_apps'].each do |web_app|
     docroot dir
     cookbook 'apache2'
     allow_override 'All'
+    directory_index ["index.html", "index.htm", "index.php"]
   end
 
 end
