@@ -23,6 +23,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     webapp.vm.box = "joelhandwell/ubuntu_precise64_vbox_4_3_20"
     webapp.vm.synced_folder "websites", "/websites", owner: "www-data", group: "www-data", mount_options: ["dmode=751,fmode=777"]
     webapp.vm.network "private_network", ip: "192.168.33.10"
+    webapp.vm.network "forwarded_port", guest: 9000, host: 9000
     webapp.vm.provision "chef_zero" do |chef|
       chef.cookbooks_path = "cookbooks"
       chef.roles_path = "roles"
