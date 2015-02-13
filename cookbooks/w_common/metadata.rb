@@ -1,10 +1,10 @@
-name 'w_common' #
-maintainer 'Joel Handwell'
+name             'w_common'
+maintainer       'Joel Handwell'
 maintainer_email 'joelhandwell@gmail.com'
-license 'apachev2'
-description 'Installs/Configures common components among all virtual machines'
-long_description 'Installs/Configures common components such as sudo, iptables for ssh, etc'
-version '0.0'
+license          'apachev2'
+description      'Installs/Configures common components among all virtual machines'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
+version          '0.1'
 
 depends 'sudo'
 depends 'ntp'

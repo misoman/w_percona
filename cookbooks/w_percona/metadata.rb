@@ -1,10 +1,10 @@
-name 'w_percona'
-maintainer 'Joel Handwell'
+name             'w_percona'
+maintainer       'Joel Handwell'
 maintainer_email 'joelhandwell@gmail.com'
-license 'apachev2'
-description 'Installs/Configures w_percona'
+license          'apachev2'
+description      'Installs/Configures w_percona'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version '0.0'
+version          '0.1'
 
 depends 'percona'
 depends 'firewall'
