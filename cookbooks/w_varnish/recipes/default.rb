@@ -56,16 +56,12 @@ service 'varnishlog' do
   action %w(enable start)
 end
 
-firewall_rule 'listen port' do
-  port     node['varnish']['listen_port'].to_i
-  protocol :tcp
-  action   :allow
-end
-
-firewall_rule 'backend port' do
-  port     node['varnish']['backend_port'].to_i
-  protocol :tcp
-  action   :allow
+[node['varnish']['backend_port'], node['varnish']['listen_port'], node['varnish']['admin_listen_port']].each do |varnish_port|
+  firewall_rule 'listen port' do
+    port     varnish_port.to_i
+    protocol :tcp
+    action   :allow
+  end
 end
 
 include_recipe 'w_varnish::monit' if node['monit_enabled']

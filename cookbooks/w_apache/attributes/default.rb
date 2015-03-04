@@ -1,3 +1,5 @@
+default['apache']['default_site_enabled'] = true
+default['w_apache']['varnish_healthcheck'] = true
 default['apache']['version'] = '2.4'
 default['apache']['pid_file'] = '/var/run/apache2/apache2.pid'
 default['apache']['default_modules'] = %w(

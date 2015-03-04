@@ -1,5 +1,5 @@
-def add_uv_varnish_vmod(vmod)
-  ChefSpec::Matchers::ResourceMatcher.new(:uv_varnish_vmod, :add, vmod)
+def add_w_varnish_vmod(vmod)
+  ChefSpec::Matchers::ResourceMatcher.new(:w_varnish_vmod, :add, vmod)
 end
 
 def add_monit_config(service)

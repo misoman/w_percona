@@ -17,8 +17,7 @@
       "webapp_ip": "127.0.0.1"
     },
     "w_common": {
-      "nfs_enabled": false,
-      "vmware-tools_enabled": false
+      "nfs_enabled": false
     },
     "w_haproxy": {
       "listen_port": "82",
@@ -28,8 +27,13 @@
       "listen_port": "81",
       "backend_port": "80"
     },
+    "w_varnish": {
+      "geoip":{
+        "enabled":true
+      },
+      "listen_address": "192.168.33.10"
+    },
     "w_apache": {
-      "ngrok_enabled": true,
       "xdebug_enabled": true,
       "config_test_enabled": true
     },

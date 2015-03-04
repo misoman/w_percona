@@ -65,11 +65,11 @@ VARNISH_VCL_CONF=/etc/varnish/default.vcl
 # # Default address and port to bind to
 # # Blank address means all IPv4 and IPv6 interfaces, otherwise specify
 # # a host name, an IPv4 dotted quad, or an IPv6 address in brackets.
-VARNISH_LISTEN_ADDRESS=<%= node['ipaddress'] %>
+VARNISH_LISTEN_ADDRESS=<%= node['w_varnish']['listen_address'].empty? ? node['ipaddress'] : node['w_varnish']['listen_address'] %>
 VARNISH_LISTEN_PORT=<%= node['varnish']['listen_port'] %>
 #
 # # Telnet admin interface listen address and port
-VARNISH_ADMIN_LISTEN_ADDRESS=<%= node['ipaddress'] %>
+VARNISH_ADMIN_LISTEN_ADDRESS=<%= node['w_varnish']['listen_address'].empty? ? node['ipaddress'] : node['w_varnish']['listen_address'] %>
 VARNISH_ADMIN_LISTEN_PORT=<%= node['varnish']['admin_listen_port'] %>
 #
 # # Shared secret file for admin interface

@@ -1,4 +1,3 @@
-default['varnish']['version'] = '4.0'
 
 default['varnish']['health_check_uri'] = '/ping.php'
 default['varnish']['health_check_timeout_seconds'] = '5'
@@ -22,4 +21,5 @@ default['varnish']['memory_limit'] = '1G'
 
 default['w_varnish']['device_detect']['enabled'] = false
 default['w_varnish']['geoip']['enabled'] = false
-default['w_varnish']['geoip']['db_file_url'] = "http://localhost/GeoIP2-City.mmdb"
+default['w_varnish']['geoip']['auto_update'] = false
+default['w_varnish']['geoip']['db_file_url'] = "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz"

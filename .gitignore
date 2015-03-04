@@ -3,3 +3,5 @@
 *.orig
 websites/*
 !websites/README
+data_bags/w_varnish/*
+!data_bags/w_varnish/README
