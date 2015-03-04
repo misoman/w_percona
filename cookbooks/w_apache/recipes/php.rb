@@ -27,6 +27,9 @@ end
 
 package 'php5-mysql'
 package 'php5-memcached'
+package 'php5-gd'
+package 'php5-pspell'
+package 'php5-curl'
 
 if node['w_apache']['xdebug_enabled'] then
 
