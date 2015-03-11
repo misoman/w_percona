@@ -32,6 +32,7 @@
       "geoip":{
         "enabled":true
       },
+      "multi_cookie_enabled": true,
       "listen_address": "192.168.33.10"
     },
     "apache": {
