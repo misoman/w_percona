@@ -24,14 +24,19 @@
       "backend_port": "81"
     },
     "varnish": {
-      "listen_port": "81",
-      "backend_port": "80"
+      "listen_port": "80",
+      "backend_port": "81"
     },
     "w_varnish": {
+      "node_ipaddress_list": ["192.168.33.10"],
       "geoip":{
         "enabled":true
       },
       "listen_address": "192.168.33.10"
+    },
+    "apache": {
+      "listen_ports": ["81"],
+      "default_site_port": "81"
     },
     "w_apache": {
       "xdebug_enabled": true,

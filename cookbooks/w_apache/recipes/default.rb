@@ -21,4 +21,4 @@ end
 
 include_recipe 'w_apache::config_test' if node['w_apache']['config_test_enabled']
 include_recipe 'w_apache::monit' if node['monit_enabled']
-include_recipe 'w_apache::varnish_healthcheck' if node['w_apache']['varnish_healthcheck']
+include_recipe 'w_apache::varnish_integration' if node['w_apache']['varnish_enabled']

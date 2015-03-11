@@ -19,6 +19,9 @@
             "db": "ex_db",
             "user": "ex_user",
             "password": "ex_pw"
+          },
+          "varnish": {
+            "purge_target": true
           }
         },
 		    {
