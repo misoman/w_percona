@@ -34,13 +34,16 @@ action 'add' do
       package 'pcre-devel'
       package 'varnish-libs-devel'
     end
+
+    clone_options = new_resource.branch.nil? ? new_resource.source : "-b #{new_resource.branch} #{new_resource.source}"
+
     bash "install #{new_resource.name}" do
-      cwd node['varnish']['vmod_build_dir']
+      cwd node['w_varnish']['vmod_build_dir']
       flags '-e -u'
       environment 'skip_source' => ::Gem::Version.new(node['varnish']['version']) >= ::Gem::Version.new('4.0') ? 'true' : 'false',
                   'redhat' => platform_family?('redhat') ? 'true' : 'false'
       code <<-EOH
-      git clone #{new_resource.source}
+      git clone #{clone_options}
       # we don't need the varnish sources if the version is >= 4.0
       if [[ "${skip_source}" == *false* ]]; then
         if [[ "${redhat}" == *false* ]]; then

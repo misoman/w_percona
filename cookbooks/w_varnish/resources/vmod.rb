@@ -20,4 +20,5 @@ default_action 'add'
 
 attribute :name, kind_of: String, name_attribute: true
 attribute :source, kind_of: String, required: true
+attribute :branch, kind_of: String, required: false
 attribute :packages, kind_of: Array, default: []
