@@ -26,7 +26,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "webapp", primary: true do |webapp|
     webapp.vm.hostname = "webapp" + hostpostfix
-    webapp.vm.box = "joelhandwell/ubuntu_precise64_vbox_4_3_20"
+    webapp.vm.box = "joelhandwell/ubuntu_precise64_vbguest"
     webapp.vm.synced_folder "websites", "/websites", owner: "www-data", group: "www-data", mount_options: ["dmode=751,fmode=777"]
     webapp.vm.network "private_network", ip: "192.168.33.10"
     webapp.ohai.primary_nic = "eth1"
