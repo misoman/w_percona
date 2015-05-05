@@ -1,0 +1,1 @@
+default["percona"]["server"]["binlog_format"] = "ROW"
