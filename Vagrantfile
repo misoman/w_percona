@@ -1,6 +1,17 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+# Require the Trigger plugin for Vagrant
+unless Vagrant.has_plugin?('vagrant-triggers')
+  # Attempt to install ourself.
+  # Bail out on failure so we don't get stuck in an infinite loop.
+  system('vagrant plugin install vagrant-triggers') || exit!
+
+  # Relaunch Vagrant so the new plugin(s) are detected.
+  # Exit with the same status code.
+  exit system('vagrant', *ARGV)
+end
+
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
@@ -11,6 +22,23 @@ VAGRANTFILE_API_VERSION = "2"
 end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # Workaround for https://github.com/mitchellh/vagrant/issues/5199
+  [:webapp, :testkitchen].each do |vm|
+    config.trigger.before [:reload, :up, :provision], stdout: true do
+
+      provider = 'virtualbox' if ENV['VAGRANT_DEFAULT_PROVIDER'].to_s.length == 0
+
+      SYNCED_FOLDER = ".vagrant/machines/#{vm}/#{provider}/synced_folders"
+      info "Trying to delete folder #{SYNCED_FOLDER}"
+      begin
+        File.delete(SYNCED_FOLDER)
+      rescue StandardError => e
+        warn "Could not delete folder #{SYNCED_FOLDER}."
+        warn e.inspect
+      end
+    end
+  end
 
   config.vm.synced_folder ".", "/vagrant"
 

@@ -17,6 +17,7 @@ cookbook 'php-fpm', git: 'https://github.com/yevgenko/cookbook-php-fpm.git'
 cookbook 'xdebug', git: 'https://github.com/joelhandwell/xdebug.git'
 cookbook 'memcached'
 cookbook 'percona'
+cookbook 'phpmyadmin'
 
 group :wrapper do
   cookbook 'w_common', path: 'cookbooks/w_common'
