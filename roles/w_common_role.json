@@ -11,9 +11,10 @@
             "main_domain": "examplewebsite.com",
             "aliases": ["www.examplewebsite.com"]
           },
-          "webapp_db_connection": {
+          "connection_domain": {
             "db_domain": "db.examplewebsite.com",
-            "webapp_domain": "webapp.examplewebsite.com"
+            "webapp_domain": "webapp.examplewebsite.com",
+            "varnish_domain": "varnish.examplewebsite.com"
           },
           "mysql": {
             "db": "ex_db",
@@ -29,9 +30,10 @@
 		        "docroot": "examplewebsite.com/admin",
             "main_domain": "admin.examplewebsite.com"
           },
-	        "webapp_db_connection": {
+	        "connection_domain": {
             "db_domain": "db.examplewebsite.com",
-            "webapp_domain": "webapp.examplewebsite.com"
+            "webapp_domain": "webapp.examplewebsite.com",
+            "varnish_domain": "varnish.examplewebsite.com"
           },
           "mysql": [
             { "db": "ex_admin_db_1",
