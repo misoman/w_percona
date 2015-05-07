@@ -74,8 +74,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "testkitchen", autostart: false do |tk|
+    tk.berkshelf.enabled = false
+    tk.berkshelf.only = ['testkitchen']
     tk.vm.hostname = "testkitchen" + hostpostfix
-    tk.vm.box = "joelhandwell/ubuntu12testkitchen"
+    tk.vm.box = "joelhandwell/ubuntu_precise64_vbguest_ruby"
     tk.vm.synced_folder "testkitchen_ssh", "/testkitchen_ssh", mount_options: ["dmode=700,fmode=600"]
   end
 end
