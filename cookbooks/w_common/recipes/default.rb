@@ -1,9 +1,18 @@
+# php-dev, percona related packages and some other package needs latest updated packages
+include_recipe 'apt'
+
+# doc start handle bash vulnerability http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6271
+package 'bash' do
+  action :upgrade
+end
+
 include_recipe 'sudo'
 include_recipe 'ntp'
-include_recipe 'timezone'
+include_recipe 'timezone-ii'
 
 include_recipe 'vmware-tools::default' if node['w_common']['vmware-tools_enabled']
 include_recipe 'w_common::hosts'
+include_recipe 'w_common::users'
 
 firewall 'ufw' do
   action :enable
