@@ -13,11 +13,8 @@
     },
     "monit_enabled": false,
     "dbhosts": {
-      "db_ip": "127.0.0.1",
-      "webapp_ip": "127.0.0.1"
-    },
-    "w_common": {
-      "nfs_enabled": false
+      "db_ip": ["127.0.0.1"],
+      "webapp_ip": ["127.0.0.1"]
     },
     "w_haproxy": {
       "listen_port": "82",
@@ -29,8 +26,12 @@
     },
     "w_varnish": {
       "node_ipaddress_list": ["192.168.33.10"],
+      "acl_purge": ["\"192.168.33.10\"/32"],
       "geoip":{
-        "enabled":true
+        "enabled":true,
+        "s3": {
+          "enabled": false,
+        }
       },
       "multi_cookie_enabled": true,
       "listen_address": "192.168.33.10"
@@ -41,7 +42,13 @@
     },
     "w_apache": {
       "xdebug_enabled": true,
-      "config_test_enabled": true
+      "config_test_enabled": true,
+      "deploy":{
+        "enabled": false
+      },
+      "phpmyadmin": {
+        "enabled": true
+      }
     },
     "w_memcached": {
       "ips": ["127.0.0.1"]
@@ -57,7 +64,9 @@
         "innodb_buffer_pool_size": "512M",
         "bind_address": "127.0.0.1"
       },
-      "skip_passwords": false,
+      "skip_passwords": false
+    },
+    "w_percona": {
       "xinetd_enabled": false
     }
   }
