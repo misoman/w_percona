@@ -8,6 +8,10 @@
 
 include_recipe 'memcached'
 
+firewall 'ufw' do
+  action :enable
+end
+
 firewall_rule 'memcached' do
   port     11211
   protocol :tcp
