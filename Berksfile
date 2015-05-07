@@ -31,8 +31,3 @@ group :wrapper do
   cookbook 'w_memcached', path: 'cookbooks/w_memcached'
   cookbook 'w_percona', path: 'cookbooks/w_percona'
 end
-
-group :testkitchen do
-  cookbook 'bash'
-  cookbook 'testkitchen', path: 'cookbooks/testkitchen'
-end
