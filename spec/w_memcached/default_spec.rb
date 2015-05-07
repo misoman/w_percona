@@ -11,11 +11,12 @@ describe 'w_memcached::default' do
     expect(chef_run).to include_recipe('memcached')
   end
 
-#  it 'runs resoruce firewall' do
-#    expect(chef_run).to include_recipe('iptables')
-#  end
+  it 'enables firewall and runs resoruce firewall_rule to open port 11211' do
+  	expect(chef_run).to enable_firewall('ufw')
+    expect(chef_run).to allow_firewall_rule('memcached').with(port: 11211, protocol: :tcp)
+  end
 
-  it 'runs recipe uv_memcached::monit' do
+  it 'runs recipe w_memcached::monit' do
     expect(chef_run).to include_recipe('w_memcached::monit')
   end
 end

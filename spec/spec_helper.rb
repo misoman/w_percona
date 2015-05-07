@@ -1,25 +1,28 @@
-# Added by ChefSpec
 require 'chefspec'
-
-# Uncomment to use ChefSpec's Berkshelf extension
 require 'chefspec/berkshelf'
+require 'mymatchers'
+
+ChefSpec::Coverage.start! do
+  add_filter(%r{/vmware-tools/})
+  add_filter(%r{/ntp/})
+  add_filter(%r{/sudo/})
+  add_filter(%r{/timezone-ii/})
+  add_filter(%r{/memcached/})
+  add_filter(%r{/apt/})
+  add_filter(%r{/monit/})
+  add_filter(%r{/apache2/})
+  add_filter(%r{/php/})
+  add_filter(%r{/phpmyadmin/})
+  add_filter(%r{/build-essential/})
+  add_filter(%r{/xdebug/})
+  add_filter(%r{/git/})
+  add_filter(%r{/varnish/})
+  add_filter(%r{/apt-repo/})
+  add_filter(%r{/percona/})
+end
 
 RSpec.configure do |config|
-  # Specify the path for Chef Solo to find cookbooks
-  config.cookbook_path = '/vagrant/cookbooks'
-
-  # Specify the path for Chef Solo to find roles
-  config.role_path = '/vagrant/roles'
-
-  # Specify the Chef log_level (default: :warn)
-  # config.log_level = :debug
-
-  # Specify the path to a local JSON file with Ohai data
-  # config.path = 'ohai.json'
-
-  # Specify the operating platform to mock Ohai data from
   config.platform = 'ubuntu'
-
-  # Specify the operating version to mock Ohai data from
-  config.version = '14.04'
+  config.version = '12.04'
+  config.filter_run_excluding skip: true
 end
