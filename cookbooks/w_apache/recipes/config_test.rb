@@ -10,7 +10,7 @@ node['w_common']['web_apps'].each do |web_app|
   template  '/websites/' + dir + '/config_test.php' do
     source 'config_test.php.erb'
     variables(
-      :db_domain => web_app['webapp_db_connection']['db_domain'],
+      :db_domain => web_app['connection_domain']['db_domain'],
       :databases => databases
     )
   end
@@ -19,7 +19,7 @@ node['w_common']['web_apps'].each do |web_app|
     content '<?php phpinfo(); ?>'
   end
 
-  redirect_dir = '/websites/' + dir + '/redierct_test'
+  redirect_dir = '/websites/' + dir + '/redirect_test'
   directory redirect_dir
   %w[ old new ].each do |filename|
     file redirect_dir + "/#{filename}file.html" do

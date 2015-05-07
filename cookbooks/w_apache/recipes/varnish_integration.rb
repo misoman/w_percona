@@ -21,26 +21,14 @@ node['w_common']['web_apps'].each do |web_app|
 
       if web_app['varnish']['purge_target'] == true then
 
-        Chef::Log.info "Generating hosts file entries for varnish purge target domains for #{web_app['vhost']['main_domain']}"
+        Chef::Log.info "Generating hosts file entries for varnish purge target domains for #{web_app['connection_domain']['varnish_domain']}"
 
-        node['w_varnish']['node_ipaddress_list'].each do |varnish_node_ip|
-
+        node['w_varnish']['node_ipaddress_list'].each_with_index do |varnish_node_ip, index|
+          domain = index.to_s + web_app['connection_domain']['varnish_domain']  
           hostsfile_entry varnish_node_ip do
-            hostname web_app['vhost']['main_domain']
+            hostname domain
             action :append
             unique true
-          end
-
-          if web_app['vhost']['aliases'].length > 0 then
-
-            web_app['vhost']['aliases'].each do |alias_domain|
-
-              hostsfile_entry varnish_node_ip do
-                hostname alias_domain
-                action :append
-                unique true
-              end
-            end
           end
         end
       end

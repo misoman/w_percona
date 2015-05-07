@@ -53,18 +53,5 @@ describe 'w_apache::deploy' do
 	  	stub_command("cat /websites/.git/config | grep https://git.example.com/repo.git").and_return(true)
 	    expect(chef_run).to_not run_execute('git remote add origin https://git.example.com/repo.git').with(cwd: '/websites', user: 'www-data', group: 'www-data')
 	  end
-
-	  it 'runs a execute git config with attributes' do
-	    expect(chef_run).to run_execute('git config core.fileMode false').with(cwd: '/websites', user: 'www-data', group: 'www-data')
-	  end
-
-	  it 'does not run a execute git config when it already exists' do
-	  	stub_command("cat /websites/.git/config | grep 'fileMode = false'").and_return(true)
-	    expect(chef_run).to_not run_execute('git config core.fileMode false').with(cwd: '/websites', user: 'www-data', group: 'www-data')
-	  end
-
-  	it 'creates file to execute git pull as root' do
-  		expect(chef_run).to create_file('/root/pull.sh').with(mode: '644')
-  	end
 	end
 end

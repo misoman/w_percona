@@ -22,11 +22,10 @@
 
       // Check connection
       if ($conn<%= index %>->connect_error) {
-        echo "Connection failed to host:<%= @db_domain %> database:<%= database['db'] %> error:" . "$conn<%= index %>->connect_error";
-      } else {
-      	echo "Connected to host:<%= @db_domain %> of database:<%= database['db'] %> successfully<br/>";
+        echo ("Connection failed to host:<%= @db_domain %> database:<%= database['db'] %> error:" . $conn<%= index %>->connect_error . "<br/>");
+      }else{ 
+        echo ("Connected to host:<%= @db_domain %> of database:<%= database['db'] %> successfully<br/>");
       }
-      
     <% end %>
   ?>
   <br/><br/>
@@ -37,7 +36,7 @@
     <% node['w_memcached']['ips'].each do |ip| %>
     $m->addServer('<%= ip %>', 11211);
     <% end %>
-    echo "Setting \$m->set('foo', 100);  \$m->get('foo') Result:";
+    echo "Setting <br/> \$m->set('foo', 100);  \$m->get('foo') Result:";
     $m->set('foo', 100);
     var_dump($m->get('foo'));
   ?>
