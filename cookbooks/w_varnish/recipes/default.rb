@@ -35,7 +35,7 @@ template "#{node['varnish']['dir']}/#{node['varnish']['vcl_conf']}" do
   owner 'root'
   group 'root'
   mode 0644
-  notifies :reload, 'service[varnish]'
+  notifies :reload, 'service[varnish]', :immediately
   only_if { node['varnish']['vcl_generated'] == true }
 end
 
@@ -48,14 +48,6 @@ template node['varnish']['default'] do
   notifies 'restart', 'service[varnish]'
 end
 
-[node['varnish']['backend_port'], node['varnish']['listen_port'], node['varnish']['admin_listen_port']].each do |varnish_port|
-  firewall_rule 'listen port' do
-    port     varnish_port.to_i
-    protocol :tcp
-    action   :allow
-  end
-end
-
 service 'varnish' do
   supports restart: true, reload: true
   action %w(enable start)
@@ -64,6 +56,18 @@ end
 service 'varnishlog' do
   supports restart: true, reload: true
   action %w(enable start)
+end
+
+firewall 'ufw' do
+  action :enable
+end
+
+[node['varnish']['backend_port'], node['varnish']['listen_port'], node['varnish']['admin_listen_port']].each do |varnish_port|
+  firewall_rule "listen port #{varnish_port}" do
+    port     varnish_port.to_i
+    protocol :tcp
+    action   :allow
+  end
 end
 
 include_recipe 'w_varnish::monit' if node['monit_enabled']

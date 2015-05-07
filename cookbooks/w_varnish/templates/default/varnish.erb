@@ -27,49 +27,17 @@ NPROCS="unlimited"
 # use Alternative 3, Advanced configuration, below
 RELOAD_VCL=1
 
-# This file contains 4 alternatives, please use only one.
-
-## Alternative 1, Minimal configuration, no VCL
-#
-# Listen on port 6081, administration on localhost:6082, and forward to
-# content server on localhost:8080.  Use a fixed-size cache file.
-#
-#DAEMON_OPTS="-a :6081 \
-#             -T localhost:6082 \
-#             -b localhost:8080 \
-#             -u varnish -g varnish \
-#             -s file,/var/lib/varnish/varnish_storage.bin,1G"
-
-
-## Alternative 2, Configuration with VCL
-#
-# Listen on port 6081, administration on localhost:6082, and forward to
-# one content server selected by the vcl file, based on the request.  Use a
-# fixed-size cache file.
-#
-#DAEMON_OPTS="-a :6081 \
-#             -T localhost:6082 \
-#             -f /etc/varnish/default.vcl \
-#             -u varnish -g varnish \
-#             -S /etc/varnish/secret \
-#             -s file,/var/lib/varnish/varnish_storage.bin,1G"
-
-
-## Alternative 3, Advanced configuration
-#
-# See varnishd(1) for more information.
-#
-# # Main configuration file. You probably want to change it :)
+# # Main configuration file.
 VARNISH_VCL_CONF=/etc/varnish/default.vcl
 #
 # # Default address and port to bind to
 # # Blank address means all IPv4 and IPv6 interfaces, otherwise specify
 # # a host name, an IPv4 dotted quad, or an IPv6 address in brackets.
-VARNISH_LISTEN_ADDRESS=<%= node['w_varnish']['listen_address'].empty? ? node['ipaddress'] : node['w_varnish']['listen_address'] %>
+VARNISH_LISTEN_ADDRESS=<%= node['varnish']['listen_address'].to_s.length == 0 ? node['ipaddress'] : node['varnish']['listen_address']%>
 VARNISH_LISTEN_PORT=<%= node['varnish']['listen_port'] %>
 #
 # # Telnet admin interface listen address and port
-VARNISH_ADMIN_LISTEN_ADDRESS=<%= node['w_varnish']['listen_address'].empty? ? node['ipaddress'] : node['w_varnish']['listen_address'] %>
+VARNISH_ADMIN_LISTEN_ADDRESS=0.0.0.0
 VARNISH_ADMIN_LISTEN_PORT=<%= node['varnish']['admin_listen_port'] %>
 #
 # # Shared secret file for admin interface
@@ -114,5 +82,3 @@ DAEMON_OPTS="-a ${VARNISH_LISTEN_ADDRESS}:${VARNISH_LISTEN_PORT} \
              -S ${VARNISH_SECRET_FILE} \
              -s ${VARNISH_STORAGE} \
                 ${EXTRA_OPTS}"
-## Alternative 4, Do It Yourself. See varnishd(1) for more information.
-#

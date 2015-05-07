@@ -44,17 +44,33 @@ sub vcl_init {
 <% node['varnish']['backend_hosts'].each_index do |index| %>
     webservers.add_backend(web<%= index %>);
 <% end %>
-<% if node['w_varnish']['geoip']['enabled'] %>
-    maxminddb.init_db("/etc/varnish/GeoIP2-City.mmdb");
-<% end %>
+
         return (ok);
 }
 
 acl purge {
-        "127.0.0.1";
+	"localhost";
+    <% node['w_varnish']['acl_purge'].each_index do |index| %>
+        <%= node['w_varnish']['acl_purge'][index] %>;
+    <% end %>
 }
 
 sub vcl_recv {
+
+   #if (req.http.host != "europe.newsweek.com"){ return(pipe); }
+
+<% if node['w_varnish']['geoip']['enabled'] %>
+    maxminddb.init_db("/etc/varnish/GeoIP2-City.mmdb");
+<% end %>
+
+   if(req.url ~ "(rss|cron)")
+   {
+		return (pass);
+   }
+
+   if (req.http.Cookie ~ "nwcmsmode=1") {
+		return (pass);
+   }
 
     if (req.url == "/varnishhealthcheck"){
         return (synth(200, "Varnish server is healthy"));
@@ -64,12 +80,14 @@ sub vcl_recv {
 
     if (req.restarts == 0) {
         if (req.http.x-forwarded-for) {
-            set req.http.X-Forwarded-For =
-                req.http.X-Forwarded-For + ", " + client.ip;
+            #set req.http.X-Forwarded-For =
+            #    req.http.X-Forwarded-For + ", " + client.ip;
         } else {
             set req.http.X-Forwarded-For = client.ip;
         }
     }
+
+
     if (req.method == "PURGE" || req.method == "BAN") {
         if (!client.ip ~ purge) {
             return (synth(405, "Not allowed"));
@@ -77,6 +95,8 @@ sub vcl_recv {
         ban("req.url ~ " + req.url);
         return (synth(200, "Purged"));
     }
+
+
     if (req.method != "GET" &&
       req.method != "HEAD" &&
       req.method != "PUT" &&
@@ -134,51 +154,43 @@ sub vcl_hash {
 ### enable to generate different cache per location
 #
     <% if node['w_varnish']['geoip']['enabled'] %>
-    set req.http.X-GeoIP = maxminddb.query_country(std.ip(req.http.X-Haproxy-Forwarded-For, "0.0.0.0"));
-    if (req.http.X-GeoIP ~ "(SE|DE|DK|NO|CH|ES|IN|IT|TR|FR|FI|GB|NZ|AU|US|CA|ID|TH|BE|SG|PH|MY|VN|NL|MX|AT|AL|BE|CY|CO|GR|IS|HU|MY|PL|RO|RU|UA)") { } else {
-        set req.http.X-GeoIP = "OTHER";
-    }
-    hash_data(req.http.X-GeoIP);
-    set req.http.X-GeoIP-City = "OTHER";
-    if (req.http.X-GeoIP == "US") {
-        set req.http.X-GeoIP-City = maxminddb.query_city(std.ip(req.http.X-Haproxy-Forwarded-For, "0.0.0.0"));
-        if (req.http.X-GeoIP-City ~ "(New York)") {
-            set req.http.X-GeoIP-City = "New York";
+    set req.http.X-GeoIP = maxminddb.query_country(std.ip(req.http.X-Forwarded-For, "0.0.0.0"));
+
+ #   hash_data(req.http.X-GeoIP);
+    if (req.http.X-GeoIP != "-") {
+        set req.http.X-GeoIP-City = maxminddb.query_city(std.ip(req.http.X-Forwarded-For, "0.0.0.0"));
+        if (req.http.X-GeoIP-City ~ "(London)") {
+            set req.http.X-GeoIP-City = "London";
         } else {
             set req.http.X-GeoIP-City = "OTHER";
         }
+	} else {
+		set req.http.X-GeoIP = "OTHER";
+		set req.http.X-GeoIP-City = "OTHER";
     }
-    hash_data(req.http.X-GeoIP-City);
+ #   hash_data(req.http.X-GeoIP-City);
     <% end %>
+
+
 
     <% if node['w_varnish']['device_detect']['enabled'] %>
     call devicedetect;
-    if (req.http.X-UA-Device == "pc") {
 
-    } elseif (req.http.X-UA-Device == "tablet-ipad") {
-        set req.http.X-UA-Device = "tablet-ipad";
+	if (req.http.X-UA-Device == "pc") {
+		set req.http.X-UA-Cat = "pc";
     } elseif (req.http.X-UA-Device ~ "tablet") {
         set req.http.X-UA-Device = "tablet";
+		set req.http.X-UA-Cat = "pc";
     } elseif (req.http.X-UA-Device ~ "mobile") {
         set req.http.X-UA-Device = "mobile";
+		set req.http.X-UA-Cat = "mobile";
     } else {
         set req.http.X-UA-Device = "other";
+		set req.http.X-UA-Cat = "pc";
     }
-    hash_data(req.http.X-UA-Device);
-    if (req.http.user-agent ~ "MSIE") {
-        set req.http.X-UA-Browser = "ie";
-    } else if (req.http.user-agent ~ "Firefox") {
-        set req.http.X-UA-Browser = "firefox";
-    } else if (req.http.user-agent ~ "Chrome") {
-        set req.http.X-UA-Browser = "chrome";
-    } else if (req.http.user-agent ~ "Safari") {
-        set req.http.X-UA-Browser = "safari";
-    } else if (req.http.user-agent ~ "Opera") {
-        set req.http.X-UA-Browser = "opera";
-    } else {
-        set req.http.X-UA-Browser = "other";
-    }
-    hash_data(req.http.X-UA-Browser);
+
+	hash_data(req.http.X-UA-Cat);
+
     <% end %>
 
 #
@@ -217,6 +229,7 @@ sub vcl_hash {
     return (lookup);
 }
 
+
 sub vcl_hit {
     return (deliver);
 }
@@ -226,6 +239,7 @@ sub vcl_miss {
 }
 
 sub vcl_backend_response {
+
     if (beresp.ttl <= 0s) {
                 /*
                  * Mark as "Hit-For-Pass" for the next 2 minutes
@@ -234,7 +248,7 @@ sub vcl_backend_response {
                 set beresp.ttl = 20 s;
                 return (deliver);
     }
-    set beresp.ttl = 600s;
+    set beresp.ttl = 3h;
     set beresp.grace = 24h;
     return (deliver);
 }
@@ -243,8 +257,10 @@ sub vcl_deliver {
 
 #    set resp.http.X-Forwarded-For = req.http.X-Forwarded-For;
     set resp.http.X-UA-Device = req.http.X-UA-Device;
+	set resp.http.X-UA-Cat = req.http.X-UA-Cat;
     set resp.http.X-GeoIP = req.http.X-GeoIP;
     set resp.http.X-GeoIP-City = req.http.X-GeoIP-City;
+	set resp.http.Set-Cookie = "X-GeoIP=" + req.http.X-GeoIP + "; path=/";
 #    set resp.http.X-Varnish-IP = "<%= node['varnish']['X-Varnish-IP'] %>";
 set resp.http.X-Debug = req.http.X-Debug;
     return (deliver);
@@ -252,7 +268,6 @@ set resp.http.X-Debug = req.http.X-Debug;
 
 sub vcl_backend_error {
     synthetic ({"
-<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
