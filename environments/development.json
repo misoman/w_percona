@@ -30,7 +30,7 @@
       "geoip":{
         "enabled":true,
         "s3": {
-          "enabled": false,
+          "enabled": false
         }
       },
       "multi_cookie_enabled": true,
