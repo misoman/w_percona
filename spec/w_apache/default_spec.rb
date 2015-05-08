@@ -30,7 +30,7 @@ describe 'w_apache::default' do
         }
 			]
 			node.set['w_varnish']['node_ipaddress_list'] = ["7.7.7.7", "8.8.8.8"]
-			node.set['apache']['access_file_name'] = '.waccess'
+			node.set['apache']['access_file_name'] = '.htaccess'
 			node.set['apache']['listen_ports'] = [80]
       node.set['w_apache']['config_test_enabled'] = true
       node.set['w_apache']['monit_enabled'] = true

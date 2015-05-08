@@ -14,7 +14,7 @@ describe 'w_apache::config_test' do
 	    ChefSpec::SoloRunner.new do |node|
 	    	node.set['w_common']['web_apps'] = web_apps
 				node.set['w_memcached']['ips'] = ['127.0.0.1']
-				node.set['apache']['access_file_name'] = '.waccess'
+				node.set['apache']['access_file_name'] = '.htaccess'
 	    end.converge(described_recipe)
 	  end
 	  
@@ -42,8 +42,8 @@ describe 'w_apache::config_test' do
     RewriteEngine ON\n    Redirect 301 /redierct_test/oldfile.html /redierct_test/newfile.html
 eos
 		  
-		  it 'creates file /websites/www/redirect_test/.waccess' do
-		  	expect(chef_run).to create_file('/websites/www/redirect_test/.waccess').with_content(access_file_content)
+		  it 'creates file /websites/www/redirect_test/.htaccess' do
+		  	expect(chef_run).to create_file('/websites/www/redirect_test/.htaccess').with_content(access_file_content)
 		  end
 
 	  end
@@ -73,8 +73,8 @@ eos
     RewriteEngine ON\n    Redirect 301 /redierct_test/oldfile.html /redierct_test/newfile.html
 eos
 		  	  
-		  it 'creates file /websites/example2.com/redirect_test/.waccess' do
-		  	expect(chef_run).to create_file('/websites/example2.com/redirect_test/.waccess').with_content(access_file_content)
+		  it 'creates file /websites/example2.com/redirect_test/.htaccess' do
+		  	expect(chef_run).to create_file('/websites/example2.com/redirect_test/.htaccess').with_content(access_file_content)
 		  end
 
 	  end
