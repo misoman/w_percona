@@ -69,6 +69,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       chef.add_role "w_varnish_role"
       chef.add_role "w_apache_role"
       chef.add_role "w_memcached_role"
+      #replace with w_mysql_role to install MySQL server instead of Percona XtraDB Cluster
+      #chef.add_role "w_mysql_role"
       chef.add_role "w_percona_role"
     end
   end

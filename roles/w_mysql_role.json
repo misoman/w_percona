@@ -1,0 +1,14 @@
+{
+  "name":"w_mysql_role",
+  "description":"MySQL",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "default_attributes": {
+  //"server": {
+  //  "root_password": "rootpw!"
+	//}
+  },
+  "run_list": [
+    "recipe[w_mysql]"
+  ]
+}
