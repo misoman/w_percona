@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+gem 'kitchen-sync'
+gem 'kitchen-vagrant'
 gem 'knife-spec'
 gem 'berkshelf'
 gem 'foodcritic'

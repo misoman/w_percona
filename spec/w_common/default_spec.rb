@@ -67,6 +67,10 @@ describe 'w_common::default' do
 			expect(chef_run).to upgrade_package('bash')
 		end
 
+		it 'installs curl' do
+			expect(chef_run).to install_package('curl')
+		end
+		
 	  it 'runs following recipes: sudo, ntp, timezone' do
 	    expect(chef_run).to include_recipe('sudo')
 	    expect(chef_run).to include_recipe('ntp')

@@ -1,5 +1,9 @@
 admins = data_bag('w_common')
 
+group 'admin' do
+	gid 111
+end
+
 admins.each do |login|
   userdata = data_bag_item('w_common', login)
   home = "/home/#{login}"
