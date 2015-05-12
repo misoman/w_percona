@@ -11,4 +11,4 @@
 include_recipe  'monit'
 
 monit_monitrc 'apache2'
-monit_monitrc 'haproxy'
+#monit_monitrc 'haproxy'

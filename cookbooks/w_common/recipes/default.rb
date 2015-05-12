@@ -6,6 +6,8 @@ package 'bash' do
   action :upgrade
 end
 
+package 'curl'
+
 include_recipe 'sudo'
 include_recipe 'ntp'
 include_recipe 'timezone-ii'

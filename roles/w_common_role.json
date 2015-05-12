@@ -28,7 +28,8 @@
 		    {
           "vhost": {
 		        "docroot": "examplewebsite.com/admin",
-            "main_domain": "admin.examplewebsite.com"
+            "main_domain": "admin.examplewebsite.com",
+            "aliases": ["admin.examplewebsite.com"]
           },
 	        "connection_domain": {
             "db_domain": "db.examplewebsite.com",
