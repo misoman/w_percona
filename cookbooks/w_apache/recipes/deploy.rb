@@ -1,17 +1,5 @@
 include_recipe 'git'
 
-if node['w_apache']['deploy'].has_key? 'repo_ip' then
-
-	repo_ip = node['w_apache']['deploy']['repo_ip']
-	repo_domain = node['w_apache']['deploy']['repo_domain']
-
-	hostsfile_entry repo_ip do
-	  hostname repo_domain
-	  action :append
-	  unique true
-	end
-end
-
 directory "/var/www/.ssh" do
   owner 'www-data'
   group 'www-data'
@@ -28,22 +16,32 @@ file '/var/www/.ssh/id_rsa' do
   mode '600'
 end
 
-
-
 node['w_common']['web_apps'].each do |web_app|
+
+	if web_app['deploy'].has_key? 'repo_ip' then
+	
+		repo_ip = web_app['deploy']['repo_ip']
+		repo_domain = web_app['deploy']['repo_domain']
+	
+		hostsfile_entry repo_ip do
+		  hostname repo_domain
+		  action :append
+		  unique true
+		end
+	end
 
   vhost = web_app['vhost']
   dir = vhost['docroot'] ? vhost['docroot'] : vhost['main_domain']
   dir = '/websites/' + dir
-
-	execute 'git init' do
+	url = web_app['deploy']['repo_url']
+	
+	execute "git init for #{url}" do
 	  cwd dir
+	  command 'git init'
 	  user 'www-data'
 	  group 'www-data'
 	  creates "#{dir}/.git/HEAD"
 	end
-	
-	url = node['w_apache']['deploy']['repo_url']
 	
 	execute "git remote add origin #{url}" do
 	  cwd dir
