@@ -57,10 +57,7 @@
       "xdebug_enabled": true,
       "config_test_enabled": true,
       "deploy":{
-        "enabled": true,
-        "repo_ip": "9.9.9.9",
-        "repo_domain": "git.examplewebsite.com",
-        "repo_url": "https://git.examplewebsite.com/repo.git"
+        "enabled": true
       },
       "phpmyadmin": {
         "enabled": true
