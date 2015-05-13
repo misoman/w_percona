@@ -6,7 +6,7 @@ describe 'w_memcached::monit' do
   end
 
   it 'runs recipe monit' do
-    expect(chef_run).to include_recipe('monit::default')
+    expect(chef_run).to include_recipe('monit')
   end
 
   %w( ssh memcached ).each do |service|

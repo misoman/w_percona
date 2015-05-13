@@ -13,13 +13,6 @@
     },
     "monit_enabled": false,
     "monit": {
-      "binary_install": true,
-      "binary": {
-        "version": "5.13",
-        "url": "http://mmonit.com/monit/dist/binary/5.13/monit-5.13-linux-x64.tar.gz",
-        "checksum": "53f882603e8cba01afba176de15115bda09fb66ca81dc949cf8ab76611c4c0e4"
-      },
-      "main_config_path": "/etc/monitrc",
       "default_monitrc_configs": ["ssh"],
       "alert_ignore_events": ["action", "instance", "pid", "ppid"],
       "alert_email": "alert@example.com",  
