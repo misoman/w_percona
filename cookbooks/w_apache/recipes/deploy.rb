@@ -28,18 +28,28 @@ file '/var/www/.ssh/id_rsa' do
   mode '600'
 end
 
-url = node['w_apache']['deploy']['repo_url']
 
-execute 'git init' do
-  cwd '/websites'
-  user 'www-data'
-  group 'www-data'
-  creates '/websites/.git/HEAD'
-end
 
-execute "git remote add origin #{url}" do
-  cwd '/websites'
-  user 'www-data'
-  group 'www-data'
-  not_if "cat /websites/.git/config | grep #{url}"
+node['w_common']['web_apps'].each do |web_app|
+
+  vhost = web_app['vhost']
+  dir = vhost['docroot'] ? vhost['docroot'] : vhost['main_domain']
+  dir = '/websites/' + dir
+
+	execute 'git init' do
+	  cwd dir
+	  user 'www-data'
+	  group 'www-data'
+	  creates "#{dir}/.git/HEAD"
+	end
+	
+	url = node['w_apache']['deploy']['repo_url']
+	
+	execute "git remote add origin #{url}" do
+	  cwd dir
+	  user 'www-data'
+	  group 'www-data'
+	  not_if "cat #{dir}/.git/config | grep #{url}"
+	end
+
 end
