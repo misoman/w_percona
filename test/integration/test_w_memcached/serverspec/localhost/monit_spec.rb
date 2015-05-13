@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe 'w_memcached::monit' do
 
-	describe command('monit -V') do
-  	its(:stdout) { should match /5.13/ }
+	describe package('monit') do
+	  it { should be_installed }
 	end
 		
 	describe service('monit') do
@@ -15,7 +15,7 @@ describe 'w_memcached::monit' do
   	it { should be_monitored_by('monit') }
 	end
 
-	describe file('/etc/monitrc') do
+	describe file('/etc/monit/monitrc') do
 	  it { should be_file }
 	  it { should contain 'username "alert@example.com"' }
 	end
