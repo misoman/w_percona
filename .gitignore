@@ -16,4 +16,6 @@ data_bags/w_apache/*
 !data_bags/w_apache/README
 data_bags/w_common/*
 !data_bags/w_common/README
+data_bags/w_mysql/*
+!data_bags/w_mysql/README
 *~
