@@ -21,7 +21,7 @@ describe 'w_apache::monit' do
 
 	describe file('/etc/monit/monitrc') do
 	  it { should be_file }
-	  it { should match contain 'username "alert@example.com"' }
+	  it { should contain 'username "alert@example.com"' }
 	end
 	
 end
