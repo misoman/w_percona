@@ -15,7 +15,7 @@ cookbook 'vmware-tools', git: 'https://github.com/tamucookbooks/vmware-tools.git
 
 cookbook 'varnish'
 cookbook 's3_file'
-cookbook 'apache2', git: 'https://github.com/joelhandwell/apache2.git'
+cookbook 'apache2', git: 'https://github.com/svanzoest-cookbooks/apache2.git', ref: '4ac713294d21c7f9f800bf9b64859ecba29f1552'
 cookbook 'php', git: 'https://github.com/maxwellshim/chef-php.git'
 cookbook 'php-fpm', git: 'https://github.com/yevgenko/cookbook-php-fpm.git'
 cookbook 'xdebug', git: 'https://github.com/joelhandwell/xdebug.git'
