@@ -7,7 +7,7 @@ cookbook 'apt'
 cookbook 'apt-repo', git: 'https://github.com/sometimesfood/chef-apt-repo.git'
 cookbook 'git'
 cookbook 'monit', git: 'https://github.com/phlipper/chef-monit.git'
-cookbook 'firewall', git: 'https://github.com/opscode-cookbooks/firewall.git', ref: '8f3de6039bb39ef5cb4b8e4b74cf22ab905d2d87'
+cookbook 'firewall', "~> 1.1.1"
 cookbook 'ntp'
 cookbook 'sudo'
 cookbook 'timezone-ii'
