@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe 'w_percona::default' do
+describe 'w_percona::database' do
 
   context 'with default setting' do
 
