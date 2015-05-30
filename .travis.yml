@@ -1,0 +1,19 @@
+language: ruby
+rvm:
+  - 2.2.2
+  - 2.1.6
+  - 2.0.0
+cache: bundler
+sudo: false  # travis docker container
+env:
+  matrix:
+    - CHEF_VERSION=12.1.2 TK_INSTANCE=test-w-percona-ubuntu-1204
+    - CHEF_VERSION=12.2.1 TK_INSTANCE=test-w-percona-ubuntu-1204
+    - CHEF_VERSION=12.3.0 TK_INSTANCE=test-w-percona-ubuntu-1204
+before_script:
+  - "gem install bundler-audit --no-rdoc --no-ri && bundle-audit update"
+script:
+  - bundle-audit check
+  - bundle exec rake foodcritic
+  - bundle exec rake chefspec
+  - bundle exec rake kitchen:$TK_INSTANCE
