@@ -9,7 +9,7 @@ before_install:
   - sudo wget -nv https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.2_x86_64.deb
   - sudo dpkg -i vagrant_1.7.2_x86_64.deb
 cache: bundler
-sudo: false  # travis docker container
+sudo: required
 env:
   matrix:
     - CHEF_VERSION=12.1.2 TK_INSTANCE=test-w-percona-ubuntu-1204
