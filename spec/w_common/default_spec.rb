@@ -56,11 +56,16 @@ describe 'w_common::default' do
 		end
 
 		it 'excute apt-get update' do
+			allow(File).to receive(:executable?).and_call_original
+			allow(File).to receive(:executable?).with('/usr/bin/apt-get').and_return(true)
+			allow(File).to receive(:exist?).and_call_original
+			allow(File).to receive(:exist?).with('/var/lib/apt/periodic/update-success-stamp').and_return(false)
+			allow(File).to receive(:exist?).with('/var/chef/cache/apt_compile_time_update_first_run').and_return(true)
 			expect(chef_run).to include_recipe('apt')
 			expect(chef_run).to run_bash('apt-get-update at compile time').with(
 				code: bash_code,
 				ignore_failure: true
-			)
+			).at_compile_time
 		end
 
 		it 'upgrads bash' do
@@ -70,7 +75,7 @@ describe 'w_common::default' do
 		it 'installs curl' do
 			expect(chef_run).to install_package('curl')
 		end
-		
+
 	  it 'runs following recipes: sudo, ntp, timezone' do
 	    expect(chef_run).to include_recipe('sudo')
 	    expect(chef_run).to include_recipe('ntp')
