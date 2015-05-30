@@ -1,10 +1,10 @@
+PHP High Availability Multi Tier Application Chef Cookbook
+==========================================================
 [![Build Status](http://img.shields.io/travis/joelhandwell/php-ha-multi-tier-app-cookbook.svg)][travis]
 
 [travis]: http://travis-ci.org/joelhandwell/php-ha-multi-tier-app-cookbook
 
 (This guide is for PHP developers and system administrators without DevOps experience, yet assuming you know how to use Git)
-
-# PHP High Availability Multi Tier Application Chef Cookbook
 
 These Cookbooks aims to keep and maintain consistent configuration between development server, stagnig server, and production server with ease and safety of operation and development in mind by installing and configuring following tiers of services:
 
