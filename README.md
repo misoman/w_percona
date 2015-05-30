@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/joelhandwell/php-ha-multi-tier-app-cookbook.svg?branch=travis)](https://travis-ci.org/joelhandwell/php-ha-multi-tier-app-cookbook)
+[![Build Status](http://img.shields.io/travis/joelhandwell/php-ha-multi-tier-app-cookbook.svg)][travis]
 
 (This guide is for PHP developers and system administrators without DevOps experience, yet assuming you know how to use Git)
 
