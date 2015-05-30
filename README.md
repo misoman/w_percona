@@ -1,5 +1,7 @@
 [![Build Status](http://img.shields.io/travis/joelhandwell/php-ha-multi-tier-app-cookbook.svg)][travis]
 
+[travis]: http://travis-ci.org/joelhandwell/php-ha-multi-tier-app-cookbook
+
 (This guide is for PHP developers and system administrators without DevOps experience, yet assuming you know how to use Git)
 
 # PHP High Availability Multi Tier Application Chef Cookbook
