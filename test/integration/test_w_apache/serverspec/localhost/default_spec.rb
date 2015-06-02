@@ -20,8 +20,12 @@ describe 'w_apache::default' do
 		it { should be_running }
 	end
 
-	describe port(80) do
+	describe port(80), :if => os[:family] == 'ubuntu' && os[:release] == '12.04' do
 	  it { should be_listening.with('tcp') }
 	end
 
+  describe command('ufw status') do
+    its(:stdout) { should match /80\/tcp[\s]*ALLOW[\s]*Anywhere/ }
+  end
+  
 end
