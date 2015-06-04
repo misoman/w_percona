@@ -12,6 +12,7 @@ cookbook 'ntp'
 cookbook 'sudo'
 cookbook 'timezone-ii'
 cookbook 'vmware-tools', git: 'https://github.com/tamucookbooks/vmware-tools.git'
+cookbook 'windows', git: 'https://github.com/opscode-cookbooks/windows.git', ref: '0e5d9338b75ac3c56112788b0f111c4d2bed3d9a'
 
 cookbook 'varnish'
 cookbook 's3_file'
