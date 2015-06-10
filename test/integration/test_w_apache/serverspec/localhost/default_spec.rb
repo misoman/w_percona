@@ -2,6 +2,18 @@ require 'spec_helper'
 
 describe 'w_apache::default' do
 
+  describe file('/etc/apt/sources.list.d/multiverse.list') do
+    it { should be_file }
+  end
+  
+  describe file('/etc/apt/sources.list.d/updates-multiverse.list') do
+    it { should be_file }
+  end
+  
+  describe file('/etc/apt/sources.list.d/security-multiverse-src.list') do
+    it { should be_file }
+  end
+    
 	['ondrej/php5', 'ondrej/apache2'].each do |ppa| 
 		describe ppa("#{ppa}") do
 		  it { should exist }

@@ -1,3 +1,24 @@
+apt_repository 'multiverse' do
+  uri 'http://archive.ubuntu.com/ubuntu'
+  distribution node["lsb"]["codename"]
+  components ['multiverse']
+  deb_src true
+end
+
+apt_repository 'updates-multiverse' do
+  uri 'http://archive.ubuntu.com/ubuntu'
+  distribution "#{node["lsb"]["codename"]}-updates"
+  components ['multiverse']
+  deb_src true
+end
+
+apt_repository 'security-multiverse-src' do
+  uri 'http://security.ubuntu.com/ubuntu'
+  distribution "#{node["lsb"]["codename"]}-security"
+  components ['multiverse']
+  deb_src true
+end
+
 apt_repository "php55" do
   uri 'ppa:ondrej/php5'
   distribution node["lsb"]["codename"]
