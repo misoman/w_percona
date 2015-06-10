@@ -17,6 +17,12 @@ platforms:
     provisioner:
       client_rb:
         environment: testkitchen
+  - name: ubuntu-14.04
+    run_list:
+      - recipe[w_common]
+    provisioner:
+      client_rb:
+        environment: testkitchen
 
 suites:
   - name: test_w_common
