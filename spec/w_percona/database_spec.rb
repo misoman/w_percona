@@ -16,22 +16,26 @@ describe 'w_percona::database' do
         node.set['w_common']['web_apps'] = web_apps
         node.set['dbhosts']['webapp_ip'] = ['1.1.1.1', '2.2.2.2']
         node.set['percona']['server']['root_password'] = 'rootpassword'
-        node.automatic['hostname'] = '0dbhost.example.com'
+        node.automatic['hostname'] = 'dbhost.example.com'
       end.converge(described_recipe)
     end
 
     before do
       stub_command("mysqladmin --user=root --password='' version").and_return(true)
-      stub_search(:node, 'role:percona').and_return([ { private_ipaddress: '10.10.10.10' }, { private_ipaddress: '10.10.10.11' } ])
+      stub_search(:node, 'chef_environment:_default AND role:w_percona_role').and_return(
+        [
+          { private_ipaddress: '10.10.9.10', roles: ["w_common_role", "w_percona_role"]},
+          { private_ipaddress: '10.10.9.11', roles: ["w_common_role", "w_percona_role"]}
+        ])
     end
 
-    ['0dbhost.example.com', 'localhost'].each do |empty_user_host|
+    ['dbhost.example.com', 'localhost'].each do |empty_user_host|
       it "delete default anonymous user @ #{empty_user_host}" do
         expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"DELETE FROM mysql.user WHERE user='' AND host='#{empty_user_host}';\"")
       end
     end
 
-    ['0dbhost.example.com', '192.168.33.1', '127.0.0.1', '::1'].each do |root_host|
+    ['dbhost.example.com', '192.168.33.1', '127.0.0.1', '::1'].each do |root_host|
       it "apply root password on @#{root_host}" do
         expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"UPDATE mysql.user SET password=password('rootpassword') WHERE user='root' AND host='#{root_host}';\"")
       end

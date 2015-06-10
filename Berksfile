@@ -23,7 +23,7 @@ cookbook 'xdebug', git: 'https://github.com/joelhandwell/xdebug.git'
 cookbook 'phpmyadmin', git: 'https://github.com/priestjim/chef-phpmyadmin.git', ref: '9985cc1b7915ce07a2e8d3d240635d6c86d1e6d1'
 cookbook 'memcached'
 cookbook 'mysql'
-cookbook 'percona', git: 'https://github.com/joelhandwell/chef-percona.git', branch: 'dedup_logdir'
+cookbook 'percona', '~> 0.16.1'
 cookbook 'xinetd', git: 'https://github.com/joelhandwell/cookbook-xinetd.git'
 
 group :wrapper do

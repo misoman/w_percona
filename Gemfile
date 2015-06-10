@@ -14,6 +14,7 @@ gem 'byebug'
 group :integration do
   gem 'serverspec'
   gem 'kitchen-vagrant'
+  gem 'vagrant-wrapper'
   gem 'kitchen-sync'
   gem 'test-kitchen'
 end
