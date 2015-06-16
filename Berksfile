@@ -25,6 +25,8 @@ cookbook 'memcached'
 cookbook 'mysql'
 cookbook 'percona', '~> 0.16.1'
 cookbook 'xinetd', git: 'https://github.com/joelhandwell/cookbook-xinetd.git'
+cookbook 'nfs'
+cookbook 'cron'
 
 group :wrapper do
   cookbook 'w_common', path: 'cookbooks/w_common'
@@ -33,4 +35,5 @@ group :wrapper do
   cookbook 'w_memcached', path: 'cookbooks/w_memcached'
   cookbook 'w_percona', path: 'cookbooks/w_percona'
   cookbook 'w_mysql', path: 'cookbooks/w_mysql'
+  cookbook 'w_nfs', path: 'cookbooks/w_nfs'
 end

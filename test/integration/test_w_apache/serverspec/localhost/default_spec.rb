@@ -39,5 +39,33 @@ describe 'w_apache::default' do
   describe command('ufw status') do
     its(:stdout) { should match /80\/tcp[\s]*ALLOW[\s]*Anywhere/ }
   end
+
+  if package('nfs-common').installed?
+    describe 'nfs client' do
+      describe package('nfs-common') do
+        it { should be_installed }
+      end
+  
+      describe user('www-data') do
+        it { should exist }
+        it { should have_uid 33 }
+      end
+  
+      describe port(32_765) do
+        it { should be_listening }
+      end
+  
+      #It should be verified after nfs server is verified
+      describe 'file should be synced between client & server '\
+               'with www-data as owner' do
+        describe file('/data/testfile1') do
+          it { should be_file }
+          it { should be_owned_by 'www-data' }
+        end
+      end
+    end
+  else
+    describe 'nfs client is not installed'
+  end
   
 end

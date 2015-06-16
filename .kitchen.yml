@@ -62,3 +62,10 @@ suites:
     run_list:
       - role[w_common_role]
       - role[w_percona_role]
+  - name: test_w_nfs
+    driver:
+      network:
+        - ["private_network", {ip: "172.31.7.12"}]
+    run_list:
+      - role[w_common_role]
+      - role[w_nfs_role]

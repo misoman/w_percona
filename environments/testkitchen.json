@@ -61,6 +61,9 @@
       },
       "phpmyadmin": {
         "enabled": true
+      },
+      "nfs": {
+        "enabled": true
       }
     },
     "w_memcached": {
@@ -81,6 +84,10 @@
     },
     "w_percona": {
       "xinetd_enabled": false
+    },
+    "nfs": {
+      "network" : "172.31.0.0/16",
+      "nfs_server_ip" : "172.31.7.12"
     }
   }
 }
