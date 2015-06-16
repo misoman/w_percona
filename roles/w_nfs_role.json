@@ -1,0 +1,12 @@
+{
+  "name":"w_nfs_role",
+  "description":"NFS",
+  "json_class": "Chef::Role",
+  "chef_type": "role",
+  "default_attributes": {
+
+  },
+  "run_list": [
+    "recipe[w_nfs]"
+  ]
+}

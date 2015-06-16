@@ -32,3 +32,5 @@ default['phpmyadmin']['version'] = '4.4.2'
 default['phpmyadmin']['checksum'] = 'e71684eebb451c70a9012452b53e60a9cd8e4679c630120b0e3a6e8607d6d37d'
 default['phpmyadmin']['config_template_cookbook'] = 'w_apache'
 default['phpmyadmin']['stand_alone'] = false
+
+default['w_apache']['nfs']['enabled'] = false

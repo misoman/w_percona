@@ -19,6 +19,7 @@ ChefSpec::Coverage.start! do
   add_filter(%r{/varnish/})
   add_filter(%r{/apt-repo/})
   add_filter(%r{/percona/})
+  add_filter(%r{/nfs/})
 end
 
 RSpec.configure do |config|
