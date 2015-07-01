@@ -19,4 +19,6 @@ data_bags/w_common/*
 !data_bags/w_common/README
 data_bags/w_mysql/*
 !data_bags/w_mysql/README
+data_bags/w_haproxy/*
+!data_bags/w_haproxy/README
 *~

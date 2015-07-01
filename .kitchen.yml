@@ -28,6 +28,48 @@ suites:
   - name: test_w_common
     run_list:
       - role[w_common_role]
+  - name: test_w_haproxy_master
+    driver:
+      #vm_hostname: "haproxy01"
+      network:
+        - ["private_network", {ip: "172.31.1.12"}]
+    run_list:
+      - role[w_common_role]
+      - role[w_haproxy_role]
+    attributes: {
+     "keepalived": {
+       "global": {
+        "router_id": "haproxy01"
+       },
+       "instances": {
+        "vi_1": {
+          "priorities": "101",
+          "interface": "eth1"
+        }
+       }
+     }
+    }
+  - name: test_w_haproxy_backup
+    driver:
+      #vm_hostname: "haproxy02"
+      network:
+        - ["private_network", {ip: "172.31.1.13"}]
+    run_list:
+      - role[w_common_role]
+      - role[w_haproxy_role]
+    attributes: {
+     "keepalived": {
+       "global": {
+        "router_id": "haproxy02"
+       },
+       "instances": {
+        "vi_1": {
+          "priorities": "100",
+          "interface": "eth1"
+        }
+       }
+     }
+    }
   - name: test_w_varnish
     driver:
       network:
