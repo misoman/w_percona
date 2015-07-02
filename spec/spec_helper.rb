@@ -20,6 +20,8 @@ ChefSpec::Coverage.start! do
   add_filter(%r{/apt-repo/})
   add_filter(%r{/percona/})
   add_filter(%r{/nfs/})
+  add_filter(%r{/haproxy/})
+  add_filter(%r{/keepalived/})  
 end
 
 RSpec.configure do |config|

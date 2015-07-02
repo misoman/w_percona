@@ -29,9 +29,20 @@
       "db_ip": ["172.31.6.12"],
       "webapp_ip": ["172.31.3.12"]
     },
-    "w_haproxy": {
-      "listen_port": "80",
-      "backend_port": "80"
+    "haproxy": {
+      "members": [{
+        "hostname": "0varnish.examplewebsite.com",
+        "ipaddress": "172.31.2.12",
+        "port": 80,
+        "ssl_port": 80
+      }]
+    },
+    "keepalived": {
+      "instances": {
+        "vi_1": {
+          "ip_addresses": "172.31.1.11"
+        }
+      }
     },
     "varnish": {
       "listen_port": "80",
@@ -63,7 +74,7 @@
         "enabled": true
       },
       "nfs": {
-        "enabled": true
+        "enabled": false
       }
     },
     "w_memcached": {
