@@ -15,4 +15,6 @@ cookbook 'timezone-ii'
 cookbook 'percona', '~> 0.16.1'
 cookbook 'xinetd', git: 'https://github.com/joelhandwell/cookbook-xinetd.git'
 
-
+group :wrapper do
+  cookbook 'w_percona', path: './'
+end
