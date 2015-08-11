@@ -23,6 +23,7 @@ describe 'w_percona::default' do
     before do
       stub_command("mysqladmin --user=root --password='' version").and_return(true)
       stub_search(:node, 'role:percona').and_return([ { private_ipaddress: '10.10.10.10' }, { private_ipaddress: '10.10.10.11' } ])
+      stub_data_bag_item('w_percona', 'db_credential').and_return('id' => 'db_credential', 'root_password' => 'rootpassword', 'backup_password' => 'backuppassword')
     end
 
     %w( cluster backup toolkit ).each do |recipe|

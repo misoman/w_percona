@@ -1,3 +1,8 @@
+db_credentials = data_bag_item('w_percona', 'db_credential')
+
+node.override['percona']['server']['root_password'] = db_credentials['root_password']
+node.override['percona']['backup']['password'] = db_credentials['backup_password']
+
 cluster_ips = []
 unless Chef::Config[:zero]
   search(:node, 'role:percona').each do |other_node|

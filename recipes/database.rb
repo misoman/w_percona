@@ -1,4 +1,6 @@
-root_password   = node['percona']['server']['root_password']
+#root_password   = node['percona']['server']['root_password']
+db_credentials = data_bag_item('w_percona', 'db_credential')
+root_password   = db_credentials['root_password']
 db_host         = node['hostname'].downcase
 
 ## security config
