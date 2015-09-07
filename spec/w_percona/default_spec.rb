@@ -41,12 +41,12 @@ describe 'w_percona::default' do
     end
 
     it 'enables firewall' do
-      expect(chef_run).to enable_firewall('ufw')
+      expect(chef_run).to install_firewall('default')
     end
 
     [3306, 4444, 4567, 4568, 9200].each do |percona_port|
       it "runs resoruce firewall_rule to open port #{percona_port}" do
-        expect(chef_run).to allow_firewall_rule("percona port #{percona_port.to_s}").with(port: percona_port, protocol: :tcp)
+        expect(chef_run).to create_firewall_rule("percona port #{percona_port.to_s}").with(port: percona_port, protocol: :tcp)
       end
     end
   end

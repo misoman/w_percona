@@ -23,14 +23,11 @@ include_recipe 'percona::toolkit'
 include_recipe 'w_percona::database'
 include_recipe 'w_percona::xinetd' if node['percona']['xinetd_enabled']
 
-firewall 'ufw' do
-  action :enable
-end
+firewall 'default'
 
 [3306, 4444, 4567, 4568, 9200].each do |percona_port|
   firewall_rule "percona port #{percona_port.to_s}" do
     port     percona_port
     protocol :tcp
-    action   :allow
   end
 end
