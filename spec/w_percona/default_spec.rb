@@ -15,7 +15,7 @@ describe 'w_percona::default' do
       ChefSpec::SoloRunner.new do |node|
         node.set['w_common']['web_apps'] = web_apps
         node.set['dbhosts']['webapp_ip'] = ['1.1.1.1', '2.2.2.2']
-        node.set['percona']['xinetd_enabled'] = false
+        node.set['w_percona']['xinetd_enabled'] = true
         node.automatic['hostname'] = 'dbhost.example.com'
       end.converge(described_recipe)
     end
@@ -24,6 +24,7 @@ describe 'w_percona::default' do
       stub_command("mysqladmin --user=root --password='' version").and_return(true)
       stub_search(:node, 'role:percona').and_return([ { private_ipaddress: '10.10.10.10' }, { private_ipaddress: '10.10.10.11' } ])
       stub_data_bag_item('w_percona', 'db_credential').and_return('id' => 'db_credential', 'root_password' => 'rootpassword', 'backup_password' => 'backuppassword')
+      stub_command("grep 9200/tcp /etc/services").and_return(false)
     end
 
     %w( cluster backup toolkit ).each do |recipe|
@@ -37,7 +38,7 @@ describe 'w_percona::default' do
     end
 
     it 'not runs recipe w_percona::xinetd' do
-      expect(chef_run).to_not include_recipe('w_percona::xinetd')
+      expect(chef_run).to include_recipe('w_percona::xinetd')
     end
 
     it 'enables firewall' do
