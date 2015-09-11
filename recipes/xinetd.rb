@@ -1,5 +1,7 @@
 include_recipe 'xinetd'
 
+db_credentials = data_bag_item('w_percona', 'db_credential')
+node.override['percona']['server']['backup_password'] = db_credentials['backup_password']
 password = node['percona']['server']['backup_password']
 
 # define access grants
