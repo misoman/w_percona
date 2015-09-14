@@ -1,6 +1,7 @@
 #root_password   = node['percona']['server']['root_password']
 db_credentials = data_bag_item('w_percona', 'db_credential')
 root_password   = db_credentials['root_password']
+backup_password   = db_credentials['backup_password']
 db_host         = node['hostname'].downcase
 
 ## security config
@@ -16,6 +17,13 @@ end
 [db_host, '192.168.33.1', '127.0.0.1', '::1'].each do |root_host|
   execute "apply root password on @#{root_host}" do
     command "mysql -uroot -p'#{root_password}' -e \"UPDATE mysql.user SET password=password('#{root_password}') WHERE user='root' AND host='#{root_host}';\""
+    action :run
+  end
+end
+
+if node['w_percona']['xinetd_enabled']
+  execute "creates clustercheck with process privilege" do
+    command "mysql -uroot -p'#{root_password}' -e \"INSERT into mysql.user (host,user,password,Process_priv) VALUES ('localhost','clustercheck',password('#{backup_password}'),'Y');\""
     action :run
   end
 end

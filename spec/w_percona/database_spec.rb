@@ -17,6 +17,7 @@ describe 'w_percona::database' do
         node.set['dbhosts']['webapp_ip'] = ['1.1.1.1', '2.2.2.2']
         node.set['percona']['server']['root_password'] = 'rootpassword'
         node.automatic['hostname'] = 'dbhost.example.com'
+        node.set['w_percona']['xinetd_enabled'] = true
       end.converge(described_recipe)
     end
 
@@ -40,6 +41,10 @@ describe 'w_percona::database' do
       it "apply root password on @#{root_host}" do
         expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"UPDATE mysql.user SET password=password('rootpassword') WHERE user='root' AND host='#{root_host}';\"")
       end
+    end
+
+    it "creates clustercheck with process privilege" do
+      expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"INSERT into mysql.user (host,user,password,Process_priv) VALUES ('localhost','clustercheck',password('backuppassword'),'Y');\"")
     end
 
     it 'Create a mysql database for webapp' do
