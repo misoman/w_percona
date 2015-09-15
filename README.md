@@ -1,9 +1,9 @@
-w_common Cookbook
+w_percona Cookbook
 ==================
 
 [![Build Status](https://travis-ci.org/haapp/w_percona.svg?branch=master)](https://travis-ci.org/haapp/w_percona)
 
-Chef cookbook to instal and configure apache2 and php-fpm. Expecting high availability architecture setting Varnish or HAProxy in front, Percona XtraDB Cluster in back load balanced by HAProxy which is installed in the same virtual machine as apache. Optinaly adds NFS for sharing files among apache vms, xdebug and phpmyadmin for development, monit for monitoring.
+Chef cookbook to instal and configure Percona XtraDB Cluster comes with health check script and xinetd for HAProxy in apache virtual machines. Expects high availability use case.
 
 
 Requirements
