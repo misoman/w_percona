@@ -21,10 +21,11 @@ describe 'w_percona::default' do
     end
 
     before do
-      stub_command("mysqladmin --user=root --password='' version").and_return(true)
       stub_search(:node, 'role:percona').and_return([ { private_ipaddress: '10.10.10.10' }, { private_ipaddress: '10.10.10.11' } ])
       stub_data_bag_item('w_percona', 'db_credential').and_return('id' => 'db_credential', 'root_password' => 'rootpassword', 'backup_password' => 'backuppassword')
       stub_command("grep 9200/tcp /etc/services").and_return(false)
+      stub_command("mysqladmin --user=root --password='' version").and_return(true)
+      stub_command("mysql -uroot -p'rootpassword' -e \"SELECT user FROM mysql.user where host='localhost' and user='clustercheck';\"").and_return(false)
     end
 
     %w( cluster backup toolkit ).each do |recipe|
