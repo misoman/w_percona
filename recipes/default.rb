@@ -3,15 +3,7 @@ db_credentials = data_bag_item('w_percona', 'db_credential')
 node.override['percona']['server']['root_password'] = db_credentials['root_password']
 node.override['percona']['backup']['password'] = db_credentials['backup_password']
 
-cluster_ips = []
-unless Chef::Config[:zero] || Chef::Config[:solo]
-  search(:node, 'role:w_percona_role').each do |other_node|
-    next if other_node['private_ipaddress'] == node['private_ipaddress']
-    Chef::Log.info "Found Percona XtraDB cluster peer: #{other_node['private_ipaddress']}"
-    cluster_ips << other_node['private_ipaddress']
-  end
-end
-
+cluster_ips = node['percona']['cluster']['cluster_ips']
 cluster_address = "gcomm://#{cluster_ips.join(',')}"
 Chef::Log.info "Using Percona XtraDB cluster address of: #{cluster_address}"
 node.override["percona"]["cluster"]["wsrep_cluster_address"] = cluster_address
