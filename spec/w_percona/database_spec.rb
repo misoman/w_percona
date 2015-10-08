@@ -18,6 +18,8 @@ describe 'w_percona::database' do
         node.set['percona']['server']['root_password'] = 'rootpassword'
         node.automatic['hostname'] = 'dbhost.example.com'
         node.set['w_percona']['xinetd_enabled'] = true
+        node.set["percona"]["sst"]["username"] = 'ssttestuser'
+        node.set["percona"]["sst"]["password"] = 'ssttestpassword'
       end.converge(described_recipe)
     end
 
@@ -44,6 +46,11 @@ describe 'w_percona::database' do
       end
     end
 
+    it "grants sstuser to localhost and %" do
+      expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'ssttestuser'@'localhost' IDENTIFIED BY 'ssttestpassword';\"")
+      expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO 'ssttestuser'@'%' IDENTIFIED BY 'ssttestpassword';\"")
+    end
+    
     it "creates clustercheck with process privilege" do
       expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"INSERT into mysql.user (host,user,password,Process_priv) VALUES ('localhost','clustercheck',password('backuppassword'),'Y');\"")
     end

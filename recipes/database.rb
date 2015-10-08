@@ -21,6 +21,16 @@ end
   end
 end
 
+sst_user = node["percona"]["sst"]["username"]
+sst_password = node["percona"]["sst"]["password"]
+
+%w( localhost % ).each do |sst_user_host|
+  execute "create user for sst for #{sst_user_host}" do
+    command "mysql -uroot -p'#{root_password}' -e \"GRANT RELOAD, LOCK TABLES, REPLICATION CLIENT ON *.* TO '#{sst_user}'@'#{sst_user_host}' IDENTIFIED BY '#{sst_password}';\""
+    action :run
+  end
+end
+
 if node['w_percona']['xinetd_enabled']
   execute "creates clustercheck with process privilege" do
     command "mysql -uroot -p'#{root_password}' -e \"INSERT into mysql.user (host,user,password,Process_priv) VALUES ('localhost','clustercheck',password('#{backup_password}'),'Y');\""
