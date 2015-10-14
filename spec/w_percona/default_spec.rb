@@ -19,6 +19,7 @@ describe 'w_percona::default' do
         node.automatic['hostname'] = 'dbhost.example.com'
         node.set['percona']['cluster']['cluster_ips'] = ['10.10.10.10', '10.10.10.11', '10.10.10.12']
         node.set['percona']['server']['role'] = ['cluster']
+        node.set['percona']['cluster']['wsrep_sst_auth'] = 'ssttestuser:ssttestpassword'
       end.converge(described_recipe)
     end
 
@@ -38,7 +39,7 @@ describe 'w_percona::default' do
         expect(chef_run).to create_firewall_rule("percona port #{percona_port.to_s}").with(port: percona_port, protocol: :tcp)
       end
     end
-    
+
     %w( cluster backup toolkit ).each do |recipe|
       it "runs recipe percona::#{recipe}" do
         expect(chef_run).to include_recipe("percona::#{recipe}")
@@ -51,8 +52,9 @@ describe 'w_percona::default' do
 
     it 'creats /etc/mysql/my.cnf' do
       expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content('gcomm://10.10.10.10,10.10.10.11,10.10.10.12')
+      expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content('wsrep_sst_auth                 = ssttestuser:ssttestpassword')
     end
-    
+
     it 'runs recipe w_percona::database' do
       expect(chef_run).to include_recipe('w_percona::database')
     end

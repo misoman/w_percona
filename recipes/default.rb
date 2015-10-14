@@ -23,4 +23,3 @@ include_recipe 'percona::backup'
 include_recipe 'percona::toolkit'
 include_recipe 'w_percona::database'
 include_recipe 'w_percona::xinetd' if node['w_percona']['xinetd_enabled']
-
