@@ -21,8 +21,9 @@ end
   end
 end
 
-sst_user = node["percona"]["sst"]["username"]
-sst_password = node["percona"]["sst"]["password"]
+sst = node['percona']['cluster']['wsrep_sst_auth'].split(':')
+sst_user = sst[0]
+sst_password = sst[1]
 
 %w( localhost % ).each do |sst_user_host|
   execute "create user for sst for #{sst_user_host}" do
@@ -35,7 +36,7 @@ if node['w_percona']['xinetd_enabled']
   execute "creates clustercheck with process privilege" do
     command "mysql -uroot -p'#{root_password}' -e \"INSERT into mysql.user (host,user,password,Process_priv) VALUES ('localhost','clustercheck',password('#{backup_password}'),'Y');\""
     action :run
-    not_if "mysql -uroot -p'#{root_password}' -e \"SELECT user FROM mysql.user where host='localhost' and user='clustercheck';\" | grep -c \"clustercheck\"" 
+    not_if "mysql -uroot -p'#{root_password}' -e \"SELECT user FROM mysql.user where host='localhost' and user='clustercheck';\" | grep -c \"clustercheck\""
   end
 end
 
