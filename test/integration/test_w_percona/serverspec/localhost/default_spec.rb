@@ -25,6 +25,7 @@ describe 'w_percona::default' do
   	it { should be_file }
   	it { should contain('vagrant_cluster') }
     it { should contain('sstdefaultuser:sstdefaultpassword') }
+    it { should contain('log-error = /var/log/mysql.err') }
 	end
 
 end
