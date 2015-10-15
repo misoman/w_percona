@@ -53,6 +53,7 @@ describe 'w_percona::default' do
     it 'creats /etc/mysql/my.cnf' do
       expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content('gcomm://10.10.10.10,10.10.10.11,10.10.10.12')
       expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content('wsrep_sst_auth                 = ssttestuser:ssttestpassword')
+      expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content('log-error = /var/log/mysql.err')
     end
 
     it 'runs recipe w_percona::database' do
