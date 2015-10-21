@@ -1,0 +1,3 @@
+[submodule "test/integration/test_w_percona"]
+	path = test/integration/test_w_percona
+	url = https://github.com/haapp/serverspec-w_percona.git
