@@ -73,6 +73,10 @@ node['w_common']['web_apps'].each do |web_app|
 
     webapp_hosts = []
 
+    node['dbhosts']['webapp_ip'].each do |webapp_ip|
+      webapp_hosts << webapp_ip
+    end
+    
     node['dbhosts']['webapp_ip'].each_index do |index|
       webapp_hosts << index.to_s + web_app['connection_domain']['webapp_domain']
     end
