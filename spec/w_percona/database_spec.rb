@@ -63,6 +63,9 @@ describe 'w_percona::database' do
       ['db1', 'db2'].each do |webapp_db|
 
         webapp_hosts = []
+        
+        webapp_hosts << '1.1.1.1'
+        webapp_hosts << '2.2.2.2'
 
         ['1.1.1.1', '2.2.2.2'].each_index do |index|
           webapp_hosts << index.to_s + 'webapp.example.com'
