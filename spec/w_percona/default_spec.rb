@@ -7,7 +7,7 @@ describe 'w_percona::default' do
     let(:web_apps) do
       [
         {vhost: {main_domain: 'example.com'}, connection_domain: { webapp_domain: 'webapp.example.com' }, mysql: [ { db: 'db1', user: 'user', password: 'pw' } ] },
-        {vhost: {main_domain: 'ex.com'}, connection_domain: { webapp_domain: 'webapp.example.com' }, mysql: [ { db: 'db2', user: 'user', password: 'pw' } ] }
+        {vhost: {main_domain: 'ex.com'}, connection_domain: { webapp_domain: 'webapp.example.com' }, mysql: [ { db: ['db2', 'db3', 'db4'], user: 'user', password: 'pw' } ] }
       ]
     end
 

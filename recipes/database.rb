@@ -45,48 +45,49 @@ node['w_common']['web_apps'].each do |web_app|
   vhost = web_app['vhost']['main_domain']
   webapp_host     = web_app['connection_domain']['webapp_domain']
 
-  Chef::Log.info("web_app['mysql'].class: #{web_app['mysql'].class}")
-
   if web_app['mysql'].instance_of?(Chef::Node::ImmutableArray) then
-    Chef::Log.info("web_app['mysql'] is detected as Array #{web_app['mysql']}")
     databases = web_app['mysql']
   else
-    Chef::Log.info("web_app['mysql'] is detected as non Array #{web_app['mysql']}")
     databases = []
     databases << web_app['mysql']
   end
 
-  Chef::Log.info("databases.inspect: #{databases.inspect}")
-
   databases.each do |database|
 
-    ## attributes
-    webapp_db       = database['db']
+    if database['db'].instance_of?(Chef::Node::ImmutableArray) then
+      webapp_dbs = database['db']
+    else
+      webapp_dbs = []
+      webapp_dbs << database['db']
+    end
+
     webapp_username = database['user']
     webapp_password = database['password']
 
-    ## webapp related config
-    execute "Create a mysql database #{webapp_db} for webapp #{vhost}" do
-      command "mysql -uroot -p'#{root_password}' -e \"CREATE DATABASE IF NOT EXISTS #{webapp_db};\""
-      action :run
-    end
+    webapp_dbs.each do |webapp_db|
 
-    webapp_hosts = []
-
-    node['dbhosts']['webapp_ip'].each do |webapp_ip|
-      webapp_hosts << webapp_ip
-    end
-    
-    node['dbhosts']['webapp_ip'].each_index do |index|
-      webapp_hosts << index.to_s + web_app['connection_domain']['webapp_domain']
-    end
-
-    webapp_hosts << 'localhost'
-
-    webapp_hosts.each do |webapp_user_host|
-      execute "Create a mysql user for webapp if not exist, and grant access of #{webapp_db} to user #{webapp_username} at host #{webapp_user_host} for vhost #{vhost}" do
-        command "mysql -uroot -p'#{root_password}' -e \"GRANT ALL ON #{webapp_db}.* TO '#{webapp_username}'@'#{webapp_user_host}' IDENTIFIED BY '#{webapp_password}';\""
+      execute "Create a mysql database #{webapp_db} for webapp #{vhost}" do
+        command "mysql -uroot -p'#{root_password}' -e \"CREATE DATABASE IF NOT EXISTS #{webapp_db};\""
         action :run
+      end
+
+      webapp_hosts = []
+
+      node['dbhosts']['webapp_ip'].each do |webapp_ip|
+        webapp_hosts << webapp_ip
+      end
+
+      node['dbhosts']['webapp_ip'].each_index do |index|
+        webapp_hosts << index.to_s + web_app['connection_domain']['webapp_domain']
+      end
+
+      webapp_hosts << 'localhost'
+
+      webapp_hosts.each do |webapp_user_host|
+        execute "Create a mysql user for webapp if not exist, and grant access of #{webapp_db} to user #{webapp_username} at host #{webapp_user_host} for vhost #{vhost}" do
+          command "mysql -uroot -p'#{root_password}' -e \"GRANT ALL ON #{webapp_db}.* TO '#{webapp_username}'@'#{webapp_user_host}' IDENTIFIED BY '#{webapp_password}';\""
+          action :run
+        end
       end
     end
   end
