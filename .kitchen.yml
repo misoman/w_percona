@@ -13,12 +13,8 @@ provisioner:
     environment: testkitchen
 
 platforms:
-  - name: ubuntu-12.04
-    driver:
-      box: joelhandwell/ubuntu_precise64_vbguest
   - name: ubuntu-14.04
-    driver:
-      box: joelhandwell/ubuntu_trusty64_vbguest
+  - name: ubuntu-12.04
 
 suites:
   - name: test_w_percona

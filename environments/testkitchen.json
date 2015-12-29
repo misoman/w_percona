@@ -94,9 +94,9 @@
         "cluster_ips": []
       },
       "server": {
-        "key_buffer": "512M",
-        "query_cache_size": "256M",
-        "innodb_buffer_pool_size": "512M",
+        "key_buffer": "48M",
+        "query_cache_size": "48M",
+        "innodb_buffer_pool_size": "48M",
         "bind_address": "0.0.0.0"
       },
       "skip_passwords": false

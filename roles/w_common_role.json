@@ -49,7 +49,7 @@
               "user": "ex_admin_user_1",
               "password": "ex_admin_pw_1"
             },
-            { "db": "ex_admin_db_2",
+            { "db": ["ex_admin_db_2", "ex_admin_db_3", "ex_admin_db_4"],
               "user": "ex_admin_user_2",
               "password": "ex_admin_pw_1"
             }

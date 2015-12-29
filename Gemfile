@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-chef_version = ENV.fetch("CHEF_VERSION", "12.3.0")
+chef_version = ENV.fetch("CHEF_VERSION", "12.6.0")
 
 gem "chef", "~> #{chef_version}"
 gem 'chefspec'

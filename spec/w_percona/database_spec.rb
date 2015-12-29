@@ -7,7 +7,7 @@ describe 'w_percona::database' do
     let(:web_apps) do
       [
         { vhost: {main_domain: 'example.com'}, connection_domain: { webapp_domain: 'webapp.example.com' }, mysql: [ { db: 'db1', user: 'user', password: 'pw' } ] },
-        { vhost: {main_domain: 'ex.com'}, connection_domain: { webapp_domain: 'webapp.example.com' }, mysql: [ { db: 'db2', user: 'user', password: 'pw' } ] }
+        { vhost: {main_domain: 'ex.com'}, connection_domain: { webapp_domain: 'webapp.example.com' }, mysql: [ { db: ['db2', 'db3', 'db4'], user: 'user', password: 'pw' } ] },
       ]
     end
 
@@ -57,13 +57,15 @@ describe 'w_percona::database' do
     it 'Create a mysql database for webapp' do
       expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"CREATE DATABASE IF NOT EXISTS db1;\"")
       expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"CREATE DATABASE IF NOT EXISTS db2;\"")
+      expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"CREATE DATABASE IF NOT EXISTS db3;\"")
+      expect(chef_run).to run_execute("mysql -uroot -p'rootpassword' -e \"CREATE DATABASE IF NOT EXISTS db4;\"")
     end
 
     ['example.com', 'ex.com'].each do |vhost|
-      ['db1', 'db2'].each do |webapp_db|
+      ['db1', 'db2', 'db3', 'db4'].each do |webapp_db|
 
         webapp_hosts = []
-        
+
         webapp_hosts << '1.1.1.1'
         webapp_hosts << '2.2.2.2'
 
