@@ -8,6 +8,7 @@ describe 'w_percona::database' do
       [
         { vhost: {main_domain: 'example.com'}, connection_domain: { webapp_domain: 'webapp.example.com' }, mysql: [ { db: 'db1', user: 'user', password: 'pw' } ] },
         { vhost: {main_domain: 'ex.com'}, connection_domain: { webapp_domain: 'webapp.example.com' }, mysql: [ { db: ['db2', 'db3', 'db4'], user: 'user', password: 'pw' } ] },
+        { vhost: {main_domain: 'vhost-without-connectiondomain-and-mysql.com'}}
       ]
     end
 
