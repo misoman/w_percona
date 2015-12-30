@@ -42,6 +42,8 @@ end
 
 node['w_common']['web_apps'].each do |web_app|
 
+  next unless web_app.has_key?('mysql')
+
   vhost = web_app['vhost']['main_domain']
   webapp_host     = web_app['connection_domain']['webapp_domain']
 
