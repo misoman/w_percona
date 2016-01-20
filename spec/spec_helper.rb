@@ -3,8 +3,8 @@ require 'chefspec/berkshelf'
 require 'mymatchers'
 
 ChefSpec::Coverage.start! do
-  add_filter(%r{apt})
-  add_filter(%r{xinetd})
+  add_filter(%r{[\/\\]apt[\/\\]})
+  add_filter(%r{[\/\\]xinetd[\/\\]})
 end
 
 RSpec.configure do |config|
