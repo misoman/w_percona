@@ -8,7 +8,7 @@ provisioner:
   name: chef_zero
   data_bags_path: test/fixtures/data_bags
   roles_path: test/fixtures/roles
-  environments_path: environments
+  environments_path: test/fixtures/environments
   client_rb:
     environment: testkitchen
 
