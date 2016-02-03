@@ -4,14 +4,6 @@ describe 'w_percona::default' do
 
   context 'with default setting' do
 
-    let(:web_apps) do
-      [
-        {vhost: {main_domain: 'example.com'}, connection_domain: { webapp_domain: 'webapp.example.com' }, mysql: [ { db: 'db1', user: 'user', password: 'pw' } ] },
-        {vhost: {main_domain: 'ex.com'}, connection_domain: { webapp_domain: 'webapp.example.com' }, mysql: [ { db: ['db2', 'db3', 'db4'], user: 'user', password: 'pw' } ] },
-        {vhost: {main_domain: 'vhost-without-connectiondomain-and-mysql.com'}}
-      ]
-    end
-
     let(:package_cluster) {chef_run.package('percona-xtradb-cluster-56')}
     let(:conf_template) {chef_run.template('/etc/mysql/my.cnf')}
     let(:execute_grants) {chef_run.execute('mysql-install-privileges')}
