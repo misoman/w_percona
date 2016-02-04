@@ -8,6 +8,7 @@ describe 'w_percona::database' do
       ChefSpec::SoloRunner.new do |node|
         node.set['w_common']['web_apps'] = web_apps
         node.set['dbhosts']['webapp_ip'] = ['1.1.1.1', '2.2.2.2']
+        node.set['dbhosts']['db_ip'] = ['4.4.4.4', '5.5.5.5']
         node.set['percona']['server']['root_password'] = 'rootpassword'
         node.automatic['hostname'] = 'dbhost.example.com'
         node.set['w_percona']['xinetd_enabled'] = true
@@ -64,6 +65,13 @@ describe 'w_percona::database' do
 
     ['1.1.1.1', '2.2.2.2'].each_index do |index|
       webapp_hosts << index.to_s + 'webapp.example.com'
+    end
+
+    webapp_hosts << '4.4.4.4'
+    webapp_hosts << '5.5.5.5'
+
+    ['4.4.4.4', '5.5.5.5'].each_index do |index|
+      webapp_hosts << index.to_s + 'db.example.com'
     end
 
     webapp_hosts << 'localhost'
