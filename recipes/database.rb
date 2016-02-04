@@ -83,6 +83,14 @@ node['w_common']['web_apps'].each do |web_app|
         webapp_hosts << index.to_s + web_app['connection_domain']['webapp_domain']
       end
 
+      node['dbhosts']['db_ip'].each do |db_ip|
+        webapp_hosts << db_ip
+      end
+
+      node['dbhosts']['db_ip'].each_index do |index|
+        webapp_hosts << index.to_s + web_app['connection_domain']['db_domain']
+      end
+
       webapp_hosts << 'localhost'
 
       webapp_hosts.each do |webapp_user_host|

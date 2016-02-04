@@ -8,6 +8,7 @@ describe 'w_percona::database' do
       ChefSpec::SoloRunner.new do |node|
         node.set['w_common']['web_apps'] = web_apps
         node.set['dbhosts']['webapp_ip'] = ['1.1.1.1', '2.2.2.2']
+        node.set['dbhosts']['db_ip'] = ['4.4.4.4', '5.5.5.5']
         node.set['percona']['server']['root_password'] = 'rootpassword'
         node.automatic['hostname'] = 'dbhost.example.com'
         node.set['w_percona']['xinetd_enabled'] = true
@@ -19,11 +20,6 @@ describe 'w_percona::database' do
       stub_data_bag_item('w_percona', 'db_credential').and_return('id' => 'db_credential', 'root_password' => 'rootpassword', 'backup_password' => 'backuppassword')
       stub_command("mysqladmin --user=root --password='' version").and_return(true)
       stub_command("mysql -uroot -p'rootpassword' -e \"SELECT user FROM mysql.user where host='localhost' and user='clustercheck';\" | grep -c \"clustercheck\"").and_return(false)
-      stub_search(:node, 'chef_environment:_default AND role:w_percona_role').and_return(
-        [
-          { private_ipaddress: '10.10.9.10', roles: ["w_common_role", "w_percona_role"]},
-          { private_ipaddress: '10.10.9.11', roles: ["w_common_role", "w_percona_role"]}
-        ])
     end
 
     ['dbhost.example.com', 'localhost'].each do |empty_user_host|
@@ -64,6 +60,13 @@ describe 'w_percona::database' do
 
     ['1.1.1.1', '2.2.2.2'].each_index do |index|
       webapp_hosts << index.to_s + 'webapp.example.com'
+    end
+
+    webapp_hosts << '4.4.4.4'
+    webapp_hosts << '5.5.5.5'
+
+    ['4.4.4.4', '5.5.5.5'].each_index do |index|
+      webapp_hosts << index.to_s + 'db.example.com'
     end
 
     webapp_hosts << 'localhost'

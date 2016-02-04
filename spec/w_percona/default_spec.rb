@@ -12,6 +12,7 @@ describe 'w_percona::default' do
       ChefSpec::SoloRunner.new do |node|
         node.set['w_common']['web_apps'] = web_apps
         node.set['dbhosts']['webapp_ip'] = ['1.1.1.1', '2.2.2.2']
+        node.set['dbhosts']['db_ip'] = ['4.4.4.4', '5.5.5.5']
         node.set['w_percona']['xinetd_enabled'] = true
         node.automatic['hostname'] = 'dbhost.example.com'
         node.set['percona']['cluster']['cluster_ips'] = ['10.10.10.10', '10.10.10.11', '10.10.10.12']
