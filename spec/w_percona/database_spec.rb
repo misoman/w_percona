@@ -20,11 +20,6 @@ describe 'w_percona::database' do
       stub_data_bag_item('w_percona', 'db_credential').and_return('id' => 'db_credential', 'root_password' => 'rootpassword', 'backup_password' => 'backuppassword')
       stub_command("mysqladmin --user=root --password='' version").and_return(true)
       stub_command("mysql -uroot -p'rootpassword' -e \"SELECT user FROM mysql.user where host='localhost' and user='clustercheck';\" | grep -c \"clustercheck\"").and_return(false)
-      stub_search(:node, 'chef_environment:_default AND role:w_percona_role').and_return(
-        [
-          { private_ipaddress: '10.10.9.10', roles: ["w_common_role", "w_percona_role"]},
-          { private_ipaddress: '10.10.9.11', roles: ["w_common_role", "w_percona_role"]}
-        ])
     end
 
     ['dbhost.example.com', 'localhost'].each do |empty_user_host|
