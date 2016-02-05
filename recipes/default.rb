@@ -3,11 +3,11 @@ db_credentials = data_bag_item('w_percona', 'db_credential')
 node.override['percona']['server']['root_password'] = db_credentials['root_password']
 node.override['percona']['backup']['password'] = db_credentials['backup_password']
 
-firewall 'default'
+include_recipe('firewall')
 
 [3306, 4444, 4567, 4568, 9200].each do |percona_port|
   firewall_rule "percona port #{percona_port.to_s}" do
-    port     percona_port
+    port percona_port
     protocol :tcp
   end
 end

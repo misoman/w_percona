@@ -16,6 +16,6 @@ cookbook 'percona', '~> 0.16.1'
 cookbook 'xinetd', git: 'https://github.com/joelhandwell/cookbook-xinetd.git'
 
 group :wrapper do
-  cookbook 'w_common', git: 'https://github.com/haapp/w_common.git'
+  cookbook 'w_common', '~> 0.4.0', git: 'https://github.com/haapp/w_common.git'
   cookbook 'w_percona', path: './'
 end

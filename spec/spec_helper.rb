@@ -4,6 +4,8 @@ require 'mymatchers'
 
 ChefSpec::Coverage.start! do
   add_filter(%r{[\/\\]apt[\/\\]})
+  add_filter(%r{[\/\\]chef-sugar[\/\\]})
+  add_filter(%r{[\/\\]firewall[\/\\]})
   add_filter(%r{[\/\\]xinetd[\/\\]})
 end
 
