@@ -31,7 +31,7 @@ describe 'w_percona::default' do
     end
 
     it 'enables firewall' do
-      expect(chef_run).to install_firewall('default')
+      expect(chef_run).to include_recipe('firewall')
     end
 
     [3306, 4444, 4567, 4568, 9200].each do |percona_port|
