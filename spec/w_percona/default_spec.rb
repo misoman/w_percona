@@ -94,9 +94,12 @@ describe 'w_percona::default' do
     end
 
     it 'creats /etc/mysql/my.cnf' do
-      expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content('gcomm://10.10.10.10,10.10.10.11,10.10.10.12')
-      expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content('wsrep_sst_auth                 = ssttestuser:ssttestpassword')
-      expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content('log-error = /var/log/mysql.err')
+      expect(chef_run).to render_file('/etc/mysql/my.cnf').with_content { |content|
+        expect(content).to include('gcomm://10.10.10.10,10.10.10.11,10.10.10.12')
+        expect(content).to include('wsrep_sst_auth                 = ssttestuser:ssttestpassword')
+        expect(content).to include('log-error = /var/log/mysql.err')
+        expect(content).to include('bind-address = 0.0.0.0')
+      }
     end
 
     it 'runs recipe w_percona::database' do
