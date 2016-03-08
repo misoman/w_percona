@@ -11,6 +11,7 @@ cookbook 'firewall', '~> 2.0.2'
 cookbook 'ntp'
 cookbook 'sudo'
 cookbook 'timezone-ii'
+cookbook 'newrelic', '~> 2.18.0'
 
 cookbook 'percona', '~> 0.16.1'
 cookbook 'xinetd', git: 'https://github.com/joelhandwell/cookbook-xinetd.git'
