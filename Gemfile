@@ -10,6 +10,7 @@ gem 'foodcritic'
 gem 'rake'
 gem 'rubocop'
 gem 'byebug'
+gem 'chef-sugar', '~> 3.3'
 
 group :integration do
   gem 'serverspec'
