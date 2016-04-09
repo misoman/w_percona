@@ -14,7 +14,7 @@ cookbook 'timezone-ii'
 cookbook 'newrelic', '~> 2.18.0'
 
 cookbook 'percona', '~> 0.16.1'
-cookbook 'xinetd', git: 'https://github.com/joelhandwell/cookbook-xinetd.git'
+cookbook 'xinetd', git: 'https://github.com/stevendanna/cookbook-xinetd.git', ref: "62ccdd0457710a66a4c213f2c5b0f8c859633b3e"
 
 group :wrapper do
   cookbook 'w_common', '~> 0.4.0', git: 'https://github.com/haapp/w_common.git'
