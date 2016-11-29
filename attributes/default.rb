@@ -1,4 +1,5 @@
 default['percona']['apt']['keyserver'] = 'hkp://keyserver.ubuntu.com:80'
+default['percona']['apt']['key'] = '8507EFA5'
 default['percona']['server']['bind_address'] = '0.0.0.0'
 default['percona']['server']['role'] = ['cluster']
 default['percona']['server']['tmpdir'] = '/var/tmp'
