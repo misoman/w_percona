@@ -4,7 +4,7 @@ describe 'w_percona::xinetd' do
 
   let(:chef_run) do
     ChefSpec::SoloRunner.new do |node|
-      node.set['percona']['xinetd_enabled'] = true
+      node.normal['percona']['xinetd_enabled'] = true
     end.converge(described_recipe)
   end
 

@@ -10,14 +10,14 @@ describe 'w_percona::default' do
 
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['w_common']['web_apps'] = web_apps
-        node.set['dbhosts']['webapp_ip'] = ['1.1.1.1', '2.2.2.2']
-        node.set['dbhosts']['db_ip'] = ['4.4.4.4', '5.5.5.5']
-        node.set['w_percona']['xinetd_enabled'] = true
+        node.normal['w_common']['web_apps'] = web_apps
+        node.normal['dbhosts']['webapp_ip'] = ['1.1.1.1', '2.2.2.2']
+        node.normal['dbhosts']['db_ip'] = ['4.4.4.4', '5.5.5.5']
+        node.normal['w_percona']['xinetd_enabled'] = true
         node.automatic['hostname'] = 'dbhost.example.com'
-        node.set['percona']['cluster']['cluster_ips'] = ['10.10.10.10', '10.10.10.11', '10.10.10.12']
-        node.set['percona']['server']['role'] = ['cluster']
-        node.set['percona']['cluster']['wsrep_sst_auth'] = 'ssttestuser:ssttestpassword'
+        node.normal['percona']['cluster']['cluster_ips'] = ['10.10.10.10', '10.10.10.11', '10.10.10.12']
+        node.normal['percona']['server']['role'] = ['cluster']
+        node.normal['percona']['cluster']['wsrep_sst_auth'] = 'ssttestuser:ssttestpassword'
       end.converge(described_recipe)
     end
 
@@ -48,7 +48,7 @@ describe 'w_percona::default' do
       it 'include percona::package_repo recipe' do
         expect(chef_run).to include_recipe('percona::package_repo')
         expect(chef_run).to add_apt_preference('00percona').with(glob: '*', pin: 'release o=Percona Development Team', pin_priority: '1001')
-        expect(chef_run).to add_apt_repository('percona').with(uri: 'http://repo.percona.com/apt', distribution: 'trusty', components: ['main'], keyserver: 'hkp://keyserver.ubuntu.com:80', key: '0x1C4CBDCDCD2EFD2A')
+        expect(chef_run).to add_apt_repository('percona').with(uri: 'http://repo.percona.com/apt', distribution: 'trusty', components: ['main'], keyserver: 'hkp://keyserver.ubuntu.com:80', key: '8507EFA5')
       end
 
       it 'installs percona cluster package' do
