@@ -6,13 +6,13 @@ describe 'w_percona::database' do
 
     let(:chef_run) do
       ChefSpec::SoloRunner.new do |node|
-        node.set['w_common']['web_apps'] = web_apps
-        node.set['dbhosts']['webapp_ip'] = ['1.1.1.1', '2.2.2.2']
-        node.set['dbhosts']['db_ip'] = ['4.4.4.4', '5.5.5.5']
-        node.set['percona']['server']['root_password'] = 'rootpassword'
+        node.normal['w_common']['web_apps'] = web_apps
+        node.normal['dbhosts']['webapp_ip'] = ['1.1.1.1', '2.2.2.2']
+        node.normal['dbhosts']['db_ip'] = ['4.4.4.4', '5.5.5.5']
+        node.normal['percona']['server']['root_password'] = 'rootpassword'
         node.automatic['hostname'] = 'dbhost.example.com'
-        node.set['w_percona']['xinetd_enabled'] = true
-        node.set['percona']['cluster']['wsrep_sst_auth'] = 'ssttestuser:ssttestpassword'
+        node.normal['w_percona']['xinetd_enabled'] = true
+        node.normal['percona']['cluster']['wsrep_sst_auth'] = 'ssttestuser:ssttestpassword'
       end.converge(described_recipe)
     end
 
